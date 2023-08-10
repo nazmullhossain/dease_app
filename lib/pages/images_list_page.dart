@@ -23,53 +23,51 @@ class ImageListPage extends StatelessWidget {
 
 
 
-            GridView.builder(
-              itemCount: 10,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2),
-              itemBuilder: (context, index) {
+            SizedBox(
+              height: MediaQuery.of(context).size.height,
+              child: GridView.builder(
+                itemCount: 10,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2),
+                itemBuilder: (context, index) {
 
-                return Column(
-                  children: [
-                    SizedBox(height: 15,),
-                    SizedBox(
-                      height: 150,
-                      child: SingleProduct(
-                        image: GlobalVarriable.,
+                  return Column(
+                    children: [
+                      SizedBox(height: 15,),
+                      SizedBox(
+                        height: 150,
+                        child: SingleProduct(
+                          image: "images/welcome banner.png",
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Text(
-                                productData.name,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                              ),
+                      Expanded(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Text(
+                                 "hellow",
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                ),
 
-                              Text(
-                                productData.price.toString(),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                              ),
-                            ],
-                          ),
-                          IconButton(
-                            onPressed: ()=>deleteProduct(productData, index),
-                            icon: const Icon(
-                              Icons.delete_outline,
+                                Text(
+                                 "hellow",
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
+
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                );
-              },
+                    ],
+                  );
+                },
+              ),
             ),
           ],
         ),
