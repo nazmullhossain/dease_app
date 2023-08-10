@@ -1,4 +1,6 @@
 import 'package:aiataf/pages/home_pages.dart';
+import 'package:aiataf/pages/quiz_page.dart';
+import 'package:aiataf/widget/bottom_bar_widget.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,7 +14,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
     debugShowCheckedModeBanner: false,
-      home: HomePage(),
+      home: BottomBarWidget(),
     );
   }
 }
