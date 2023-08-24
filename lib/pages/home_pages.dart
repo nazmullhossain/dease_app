@@ -4,10 +4,21 @@ import '../const/global_const.dart';
 
 import '../widget/search_widget.dart';
 import '../widget/slider_widget.dart';
+import 'linear_page/drug_linnear_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  void navigateToSearchScreen(BuildContext context, MyListItem item){
+  Navigator.push(context, MaterialPageRoute(builder: (context)=>DragLinearPage()));
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,12 +79,10 @@ class HomePage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(
-                height: 1,
-              ),
+
               SliderScreen(),
               SizedBox(
-                height: 10,
+                height: 5,
               ),
               Container(
                 child: Column(
@@ -86,29 +95,34 @@ class HomePage extends StatelessWidget {
                           itemCount: GlobalVarriable.items.length,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisSpacing: 10,
-                                  mainAxisSpacing: 20,
+                                  crossAxisSpacing: 20,
+                                  // mainAxisSpacing: 10,
                                   crossAxisCount: 4),
                           itemBuilder: (context, index) {
-                            return Container(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset(
-                                    GlobalVarriable.items[index].image,
-                                    width: 30,
-                                    height: 30,
-                                  ),
-                                  SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    GlobalVarriable.items[index].title,
-                                    style: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w500),
-                                  )
-                                ],
+                            return InkWell(
+                              onTap: (){
+                                navigateToSearchScreen(context, GlobalVarriable.items[index]);
+                              },
+                              child: Container(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.asset(
+                                      GlobalVarriable.items[index].image,
+                                      width: 30,
+                                      height: 30,
+                                    ),
+                                    SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      GlobalVarriable.items[index].title,
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500),
+                                    )
+                                  ],
+                                ),
                               ),
                             );
                           }),
@@ -188,7 +202,7 @@ class HomePage extends StatelessWidget {
               ),
 
               SizedBox(
-                height: 150,
+                height: 200,
                 child: ListView.builder(
                     itemCount: 5,
                     itemBuilder: (context, index) {

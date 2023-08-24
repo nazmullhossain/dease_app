@@ -8,6 +8,7 @@ import '../const/global_const.dart';
 import '../pages/case_studies_list.dart';
 import '../pages/home_pages.dart';
 import '../pages/images_list_page.dart';
+import '../pages/more_pages.dart';
 import '../pages/quiz_page.dart';
 
 class BottomBarWidget extends StatefulWidget {
@@ -26,7 +27,9 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
 
     QuizPage(),
     CaseStudiesList(),
-    ImageListPage()
+    ImageListPage(),
+
+    MorePage()
 
   ];
   void updatePage(int page){
@@ -80,9 +83,9 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                     )
                 )
             ),
-            child: Icon(Icons.medical_information),
+            child: Icon(Icons.medical_information_sharp),
           ),
-              label: "Profile"
+              label: "Skin Checker"
           ),
 
 
@@ -121,6 +124,23 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
             child: Icon(Icons.person),
           ),
               label: "Profile"
+          ),
+          BottomNavigationBarItem(icon: Container(
+            width:bottomBarWidth ,
+            decoration: BoxDecoration(
+                border: Border(
+                    top: BorderSide(
+                      color: _page==4?
+                      GlobalVarriable.selectedNavBarColor
+                          : GlobalVarriable.backGroundColor,
+                      width: bottomBarBorderWidth,
+
+                    )
+                )
+            ),
+            child: Icon(Icons.person),
+          ),
+              label: "More"
           ),
 
 
