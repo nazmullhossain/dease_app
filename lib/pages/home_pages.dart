@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../const/global_const.dart';
 
+import '../models/brands_models.dart';
+import '../services/brands_services.dart';
 import '../widget/search_widget.dart';
 import '../widget/slider_widget.dart';
 import 'linear_page/drug_linnear_page.dart';
@@ -17,6 +19,24 @@ class _HomePageState extends State<HomePage> {
 
   void navigateToSearchScreen(BuildContext context, MyListItem item){
   Navigator.push(context, MaterialPageRoute(builder: (context)=>DragLinearPage()));
+  }
+
+  List<Data>? data;
+
+  BrandServices brandServices=BrandServices();
+
+  getBrand()async{
+    data=await brandServices.geBrand(context);
+    setState(() {
+
+    });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getBrand();
+    super.initState();
   }
   
   @override
@@ -76,7 +96,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        body: SingleChildScrollView(
+        body:  data==null ?Center(child: Text("no data "),) :SingleChildScrollView(
           child: Column(
             children: [
 
