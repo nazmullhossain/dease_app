@@ -100,6 +100,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: [
 
+
               SliderScreen(),
               SizedBox(
                 height: 5,
@@ -226,6 +227,7 @@ class _HomePageState extends State<HomePage> {
                 child: ListView.builder(
                     itemCount: 5,
                     itemBuilder: (context, index) {
+                final prod=      data![index];
                       return Container(
 
                         padding: EdgeInsets.all(20),
@@ -241,7 +243,7 @@ class _HomePageState extends State<HomePage> {
                             height: 50,
                             fit: BoxFit.cover,
                           ),
-                          title: Text("Treatment of Seborheic Dermatis"),
+                          title: Text("${prod.name}"),
                           subtitle: Text("American Familly Physican(AFp)"),
                         ),
                       );

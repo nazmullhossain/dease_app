@@ -28,13 +28,19 @@ Future <List<Data>> geBrand(BuildContext context)async{
       print("get data${res.body}");
 
 
-      httpErrorHandle(response: res, context: context, onSuccess: (){
-        for(int i =0; i<jsonDecode(res.body).length; i++){
+      if(res.statusCode==200){
+        var jsonRes = jsonDecode(res.body);
+        print(jsonRes);
 
-          insertData.add(jsonEncode(jsonDecode(res.body)[i]) as Data);
+        BrandModel brandModel=BrandModel.fromJson(jsonRes);
 
-  }
-  });
+        for(Data data in brandModel.data!){
+            insertData.add(data);
+        }
+
+      }else{
+
+      }
 
 
 
