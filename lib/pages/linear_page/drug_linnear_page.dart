@@ -1,5 +1,7 @@
+import 'package:aiataf/services/brands_services.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/brands_models.dart';
 import 'linear_widget/drug/drug_widget.dart';
 
 class DragLinearPage extends StatefulWidget {
@@ -11,6 +13,16 @@ class DragLinearPage extends StatefulWidget {
 
 class _DragLinearPageState extends State<DragLinearPage> with SingleTickerProviderStateMixin {
   late TabController _tabController;
+  List<Data>? data;
+
+  BrandServices brandServices=BrandServices();
+
+  getBrand()async{
+    data=await brandServices.geBrand(context);
+    setState(() {
+
+    });
+  }
 
 
   @override
@@ -18,6 +30,7 @@ class _DragLinearPageState extends State<DragLinearPage> with SingleTickerProvid
     // TODO: implement initState
     _tabController = TabController(length: 4, vsync: this, initialIndex: 0);
     _tabController.addListener(_handleTabSelection);
+    getBrand();
     super.initState();
   }
 

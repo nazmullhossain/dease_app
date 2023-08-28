@@ -1,9 +1,11 @@
+import 'package:aiataf/models/company_model.dart';
 import 'package:flutter/material.dart';
 
 import '../const/global_const.dart';
 
-import '../models/brands_models.dart';
+
 import '../services/brands_services.dart';
+import '../services/companies_service.dart';
 import '../widget/search_widget.dart';
 import '../widget/slider_widget.dart';
 import 'linear_page/drug_linnear_page.dart';
@@ -21,12 +23,12 @@ class _HomePageState extends State<HomePage> {
   Navigator.push(context, MaterialPageRoute(builder: (context)=>DragLinearPage()));
   }
 
-  List<Data>? data;
+  List<CompanyData>? data;
 
-  BrandServices brandServices=BrandServices();
+  ComapanyServices brandServices=ComapanyServices();
 
-  getBrand()async{
-    data=await brandServices.geBrand(context);
+  getCompany()async{
+    data=await brandServices.getCompany(context);
     setState(() {
 
     });
@@ -35,7 +37,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     // TODO: implement initState
-    getBrand();
+    getCompany();
     super.initState();
   }
   
