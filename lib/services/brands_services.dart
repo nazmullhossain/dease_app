@@ -1,7 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:aiataf/const/error_handling.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/brands_models.dart';
@@ -12,12 +15,12 @@ class BrandServices {
 
 
 
-Future <List<Data>> geBrand(BuildContext context)async{
+ Future <List<Data>> geBrand(BuildContext context)async{
   List<Data> insertData = [];
 
 
   try{
-    final String url = "http://skinvd.itmapi.com/api/drugs/brands?limit=22&page=1&date=2022-01-01";
+    final String url = "http://skinvd.itmapi.com/api/drugs/brands";
 
      Map<String, String> headers = {
         "Accept": "application/json",
@@ -26,6 +29,7 @@ Future <List<Data>> geBrand(BuildContext context)async{
 
     http.Response res = await http.get(Uri.parse(url), headers: headers);
       print("get data${res.body}");
+    print("get brandddddddddddddddddddd       ${res.body.length}");
 
 
       if(res.statusCode==200){
@@ -38,13 +42,24 @@ Future <List<Data>> geBrand(BuildContext context)async{
             insertData.add(data);
         }
 
-      }else{
-
       }
 
 
+  }on SocketException{
+    Fluttertoast.showToast(
+        msg: "No internet connection",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white,
+        fontSize: 16.0
+    );
 
-  }catch(e){
+  }
+
+
+  catch(e){
 print(e.toString());
   }
   return insertData;

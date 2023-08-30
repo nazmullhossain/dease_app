@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../../../helper/brand_database_helper.dart';
 import '../../../../models/brands_models.dart';
 import '../../../../models/company_model.dart';
 import '../../../../services/brands_services.dart';
@@ -61,6 +62,9 @@ class _DrugItemWidgetState extends State<DrugItemWidget> {
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.white70),
                       child: ListTile(
+                        onTap: (){
+                          DbHelper.dbHelper.insertNewRecipe(dataa);
+                        },
                         title: RichText(
                           text: TextSpan(
                               text: "${dataa.name}",

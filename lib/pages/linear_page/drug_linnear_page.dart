@@ -1,5 +1,7 @@
+import 'package:aiataf/provider/brand_provider.dart';
 import 'package:aiataf/services/brands_services.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/brands_models.dart';
 import 'linear_widget/drug/drug_widget.dart';
@@ -49,6 +51,18 @@ class _DragLinearPageState extends State<DragLinearPage> with SingleTickerProvid
       appBar: AppBar(
         title: Text("Drugs"),
         centerTitle: true,
+
+        actions: [
+          Consumer<RecipeClass>(
+
+            builder: (BuildContext context, provider, Widget? child) {
+              return IconButton(onPressed: (){
+                // provider.joinGetData();
+                provider.getRecipes();
+              }, icon: Icon(Icons.add));
+            }
+          )
+        ],
       ),
 
       body: SingleChildScrollView(

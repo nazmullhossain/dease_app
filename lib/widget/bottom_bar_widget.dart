@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../const/global_const.dart';
 import '../pages/case_studies_list.dart';
+import '../pages/company_pages.dart';
 import '../pages/home_pages.dart';
 import '../pages/images_list_page.dart';
 import '../pages/more_pages.dart';
@@ -28,8 +29,8 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
     QuizPage(),
     CaseStudiesList(),
     ImageListPage(),
-
-    MorePage()
+    CompanyPage()
+    // MorePage()
 
   ];
   void updatePage(int page){

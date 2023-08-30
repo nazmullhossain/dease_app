@@ -1,4 +1,9 @@
 class BrandModel {
+
+
+
+
+
   List<Data>? data;
   Links? links;
   Meta? meta;
@@ -30,6 +35,12 @@ class BrandModel {
     return data;
   }
 }
+
+
+
+
+
+
 
 class Data {
   int? id;
@@ -86,6 +97,10 @@ class Data {
     data['deleted_at'] = this.deletedAt;
     return data;
   }
+
+
+
+
 }
 
 class Links {

@@ -1,5 +1,9 @@
+import 'package:aiataf/helper/brand_database_helper.dart';
+import 'package:aiataf/models/brands_models.dart';
 import 'package:aiataf/models/company_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:intl/intl.dart';
 
 import '../const/global_const.dart';
 
@@ -18,20 +22,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-  void navigateToSearchScreen(BuildContext context, MyListItem item){
-  Navigator.push(context, MaterialPageRoute(builder: (context)=>DragLinearPage()));
+  void navigateToSearchScreen(BuildContext context, MyListItem item) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => DragLinearPage()));
   }
 
   List<CompanyData>? data;
 
-  ComapanyServices brandServices=ComapanyServices();
+  ComapanyServices brandServices = ComapanyServices();
 
-  getCompany()async{
-    data=await brandServices.getCompany(context);
-    setState(() {
-
-    });
+  getCompany() async {
+    data = await brandServices.getCompany(context);
+    setState(() {});
   }
 
   @override
@@ -40,7 +42,11 @@ class _HomePageState extends State<HomePage> {
     getCompany();
     super.initState();
   }
-  
+
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,7 +86,13 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: [
-                    Icon(Icons.sync),
+                    InkWell(
+                       onTap: (){
+                         // DateFormat('yyyy-MM-dd').format(DateTime.now());
+                         DbHelper.dbHelper.insertNewRecipe(data as Data);
+                        },
+
+                        child: Icon(Icons.sync)),
                     RichText(
                         text: TextSpan(
                             text: "Last sync",
@@ -98,168 +110,171 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        body:  data==null ?Center(child: Text("no data "),) :SingleChildScrollView(
-          child: Column(
-            children: [
-
-
-              SliderScreen(),
-              SizedBox(
-                height: 5,
-              ),
-              Container(
+        body: data == null
+            ? Center(
+                child: Text("no data "),
+              )
+            : SingleChildScrollView(
                 child: Column(
                   children: [
-                    SearchWidget(),
+                    SliderScreen(),
                     SizedBox(
-                      height: 175,
-                      child: GridView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          itemCount: GlobalVarriable.items.length,
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisSpacing: 20,
-                                  // mainAxisSpacing: 10,
-                                  crossAxisCount: 4),
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: (){
-                                navigateToSearchScreen(context, GlobalVarriable.items[index]);
-                              },
-                              child: Container(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset(
-                                      GlobalVarriable.items[index].image,
-                                      width: 30,
-                                      height: 30,
+                      height: 5,
+                    ),
+                    Container(
+                      child: Column(
+                        children: [
+                          SearchWidget(),
+                          SizedBox(
+                            height: 175,
+                            child: GridView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: GlobalVarriable.items.length,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisSpacing: 20,
+                                        // mainAxisSpacing: 10,
+                                        crossAxisCount: 4),
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      navigateToSearchScreen(context,
+                                          GlobalVarriable.items[index]);
+                                    },
+                                    child: Container(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                            GlobalVarriable.items[index].image,
+                                            width: 30,
+                                            height: 30,
+                                          ),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(
+                                            GlobalVarriable.items[index].title,
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500),
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      GlobalVarriable.items[index].title,
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w500),
-                                    )
-                                  ],
+                                  );
+                                }),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Image.asset(
+                              "images/investigations.png",
+                              height: 49,
+                              width: 49,
+                            ),
+                            SizedBox(
+                              width: 2,
+                            ),
+                            Text(
+                              "Derma Update",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )
+                          ],
+                        ),
+
+                        // Container(
+                        //
+                        //   padding: EdgeInsets.all(10),
+                        //   margin: EdgeInsets.only(right: 10),
+                        //   decoration: BoxDecoration(
+                        //
+                        //       borderRadius: BorderRadius.circular(40),
+                        //       boxShadow: [
+                        //         BoxShadow(
+                        //
+                        //           color: Colors.white,
+                        //           blurRadius: 1,
+                        //           spreadRadius: 5,
+                        //
+                        //
+                        //
+                        //         )
+                        //       ]
+                        //   ),
+                        //   child: Text("View All",style: TextStyle(fontWeight: FontWeight.bold),),
+                        // )
+
+                        // Material(
+                        //
+                        //
+                        //   elevation: 5,
+                        //
+                        //
+                        //   borderRadius: BorderRadius.circular(20),
+                        //   color: Colors.white,
+                        //   child: Text("View All",style: TextStyle(fontSize: 20),),
+                        // )
+                        Padding(
+                          padding: const EdgeInsets.only(right: 10),
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor: Colors.white),
+                              onPressed: () {},
+                              child: Text(
+                                "View All",
+                                style: TextStyle(
+                                  color: Colors.black,
                                 ),
+                              )),
+                        )
+                      ],
+                    ),
+
+                    SizedBox(
+                      height: 200,
+                      child: ListView.builder(
+                          itemCount: data!.length,
+                          itemBuilder: (context, index) {
+                            final prod = data![index];
+                            return Container(
+                              padding: EdgeInsets.all(20),
+                              margin: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.white),
+                              child: ListTile(
+                                leading: Image.asset(
+                                  "images/welcome banner.png",
+                                  width: 50,
+                                  height: 50,
+                                  fit: BoxFit.cover,
+                                ),
+                                title: Text("${prod.name}"),
+                                subtitle:
+                                    Text("American Familly Physican(AFp)"),
                               ),
                             );
                           }),
                     ),
+
+                    // Container(
+                    //   decoration: BoxDecoration(
+                    //     borderRadius: BorderRadius.circular(10),
+                    //     color:
+                    //   ),
+                    // )
                   ],
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Image.asset(
-                        "images/investigations.png",
-                        height: 49,
-                        width: 49,
-                      ),
-                      SizedBox(
-                        width: 2,
-                      ),
-                      Text(
-                        "Derma Update",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      )
-                    ],
-                  ),
-
-                  // Container(
-                  //
-                  //   padding: EdgeInsets.all(10),
-                  //   margin: EdgeInsets.only(right: 10),
-                  //   decoration: BoxDecoration(
-                  //
-                  //       borderRadius: BorderRadius.circular(40),
-                  //       boxShadow: [
-                  //         BoxShadow(
-                  //
-                  //           color: Colors.white,
-                  //           blurRadius: 1,
-                  //           spreadRadius: 5,
-                  //
-                  //
-                  //
-                  //         )
-                  //       ]
-                  //   ),
-                  //   child: Text("View All",style: TextStyle(fontWeight: FontWeight.bold),),
-                  // )
-
-                  // Material(
-                  //
-                  //
-                  //   elevation: 5,
-                  //
-                  //
-                  //   borderRadius: BorderRadius.circular(20),
-                  //   color: Colors.white,
-                  //   child: Text("View All",style: TextStyle(fontSize: 20),),
-                  // )
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white),
-                        onPressed: () {},
-                        child: Text(
-                          "View All",
-                          style: TextStyle(
-                            color: Colors.black,
-                          ),
-                        )),
-                  )
-                ],
-              ),
-
-              SizedBox(
-                height: 200,
-                child: ListView.builder(
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                final prod=      data![index];
-                      return Container(
-
-                        padding: EdgeInsets.all(20),
-                        margin: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-
-                            color: Colors.white),
-                        child: ListTile(
-                          leading: Image.asset(
-                            "images/welcome banner.png",
-                            width: 50,
-                            height: 50,
-                            fit: BoxFit.cover,
-                          ),
-                          title: Text("${prod.name}"),
-                          subtitle: Text("American Familly Physican(AFp)"),
-                        ),
-                      );
-                    }),
-              ),
-
-              // Container(
-              //   decoration: BoxDecoration(
-              //     borderRadius: BorderRadius.circular(10),
-              //     color:
-              //   ),
-              // )
-            ],
-          ),
-        ));
+              ));
   }
 }
