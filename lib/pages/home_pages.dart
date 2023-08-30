@@ -4,10 +4,12 @@ import 'package:aiataf/models/company_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import '../const/global_const.dart';
 
 
+import '../provider/company_provider.dart';
 import '../services/brands_services.dart';
 import '../services/companies_service.dart';
 import '../widget/search_widget.dart';
@@ -82,30 +84,36 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             actions: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    InkWell(
-                       onTap: (){
-                         // DateFormat('yyyy-MM-dd').format(DateTime.now());
-                         DbHelper.dbHelper.insertNewRecipe(data as Data);
-                        },
+              Consumer<CompanyProvider>(
 
-                        child: Icon(Icons.sync)),
-                    RichText(
-                        text: TextSpan(
-                            text: "Last sync",
-                            style: TextStyle(fontSize: 10),
-                            children: [
-                          TextSpan(
-                              text: " 06/08/23",
-                              style: TextStyle(
-                                fontSize: 10,
-                              ))
-                        ]))
-                  ],
-                ),
+                builder: (BuildContext context, provider, Widget? child) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        InkWell(
+                           onTap: (){
+                             provider.getRecipes();
+                             // DateFormat('yyyy-MM-dd').format(DateTime.now());
+                             // DbHelper.dbHelper.insertNewRecipe(data as Data);
+                            },
+
+                            child: Icon(Icons.sync)),
+                        RichText(
+                            text: TextSpan(
+                                text: "Last sync",
+                                style: TextStyle(fontSize: 10),
+                                children: [
+                              TextSpan(
+                                  text: " 06/08/23",
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                  ))
+                            ]))
+                      ],
+                    ),
+                  );
+                }
               )
             ],
           ),

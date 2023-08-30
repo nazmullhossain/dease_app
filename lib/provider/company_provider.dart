@@ -10,8 +10,8 @@ import '../models/company_model.dart';
 
 
 
-class RecipeClass extends ChangeNotifier {
-  RecipeClass() {
+class CompanyProvider extends ChangeNotifier {
+  CompanyProvider() {
     getRecipes();
   }
 
@@ -23,14 +23,14 @@ class RecipeClass extends ChangeNotifier {
   List<CompanyData> allRecipes = [];
 
   getRecipes() async {
-    allRecipes = await CompanyDbHelper.dbHelper.getAllRecipes();
+    allRecipes = await ItemDbHelper.dbHelper.getAllRecipes();
     notifyListeners();
 
   }
 
 
   deleteAll(){
-    DbHelper.dbHelper.deleteRecipes();
+    ItemDbHelper.dbHelper.deleteRecipes();
 
   }
 

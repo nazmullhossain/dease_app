@@ -109,15 +109,12 @@ import 'package:sqflite/sqflite.dart';
 
 import '../models/company_model.dart';
 
-class CompanyDbHelper {
+class ItemDbHelper  {
   late Database database;
-  static CompanyDbHelper dbHelper = CompanyDbHelper();
+  static ItemDbHelper  dbHelper = ItemDbHelper ();
   final String tableName = 'company';
-
   final String idColumn = 'id';
-
   final String nameColumn = 'name';
-
   final String createdAtColumn = 'created_at';
   final String updatedAtColumn = 'updated_at';
   final String deleteAtColumn = 'deleted_at';
@@ -128,14 +125,12 @@ class CompanyDbHelper {
 
   Future<Database> connectToDatabase() async {
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = '$directory/mycompany.db';
+    String path = '$directory/mycompanyy.db';
     return openDatabase(
       path,
       version: 1,
       onCreate: (db, version) {
         db.execute(
-            // 'CREATE TABLE $tableName ($idColumn INTEGER PRIMARY KEY AUTOINCREMENT, $productNameColumn TEXT, $priceColumn INTEGER,$vatPercentColumn INTEGER,  $categoryNameColumn TEXT, $companyNameColumn TEXT, $unitNameColumn TEXT,$genericNameColumn TEXT,$strengthColumn TEXT,)');
-
             'CREATE TABLE $tableName ($idColumn INTEGER PRIMARY KEY AUTOINCREMENT, $nameColumn TEXT,$createdAtColumn TEXT,$updatedAtColumn TEXT,$deleteAtColumn TEXT)');
       },
       onUpgrade: (db, oldVersion, newVersion) {
@@ -151,15 +146,14 @@ class CompanyDbHelper {
   Future<List<CompanyData>> getAllRecipes() async {
     List<Map<String, dynamic>> tasks = await database.query(tableName);
 
-    print("data---------------------.${tasks}");
+    print("CompanyData---------------------.${tasks}");
 
-    print("lentht-------------------->${tasks.length}");
+    print("CompanyData-------------------->${tasks.length}");
     return tasks.map((e) => CompanyData.fromJson(e)).toList();
   }
 
-  insertNewRecipe(CompanyData recipeModel) {
-    database.insert(tableName, recipeModel.toJson(),
-        conflictAlgorithm: ConflictAlgorithm.replace);
+  insertNewRecipe(CompanyData companyData) {
+    database.insert(tableName, companyData.toJson(),conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   deleteRecipe(CompanyData recipeModel) {

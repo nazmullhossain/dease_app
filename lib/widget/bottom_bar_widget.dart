@@ -29,8 +29,8 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
     QuizPage(),
     CaseStudiesList(),
     ImageListPage(),
-    CompanyPage()
-    // MorePage()
+
+    MorePage()
 
   ];
   void updatePage(int page){

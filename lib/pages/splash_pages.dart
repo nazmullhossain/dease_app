@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:aiataf/helper/b_c_combine_helper.dart';
 import 'package:aiataf/pages/home_pages.dart';
 import 'package:aiataf/widget/bottom_bar_widget.dart';
 
@@ -35,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
     counter = 0;
     percent = 0;
     getBrand();
-    getCompany();
+    // getCompany();
   }
 
   // ignore: non_constant_identifier_names
@@ -94,38 +93,38 @@ class _SplashScreenState extends State<SplashScreen> {
       }
     }
   }
-  getCompany() async {
-    dataaCompanyData = await comapanyServices.getCompany(context);
-
-    if (!await isNetworkAvailable()) {
-      showSnackBar(context, "your internet connection done");
-
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const BottomBarWidget()));
-    } else {
-      if (dataaCompanyData != null) {
-        for (CompanyData data in dataaCompanyData!) {
-          // await _dbHelper.getOneData(data.id!);
-          CompanyDbHelper.dbHelper.insertNewRecipe(data!);
-
-
-
-          setState(() {
-            counter = counter + 1;
-            percent = ((counter / dataa!.length) * 100);
-          });
-          print("parcentent------------------->${percent}");
-
-          if (percent == 100.0) {
-            Future.delayed(Duration(seconds: 4), () {
-              Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => BottomBarWidget()));
-            });
-          }
-        }
-      }
-    }
-  }
+  // getCompany() async {
+  //   dataaCompanyData = await comapanyServices.getCompany(context);
+  //
+  //   if (!await isNetworkAvailable()) {
+  //     showSnackBar(context, "your internet connection done");
+  //
+  //     Navigator.of(context).pushReplacement(
+  //         MaterialPageRoute(builder: (_) => const BottomBarWidget()));
+  //   } else {
+  //     if (dataaCompanyData != null) {
+  //       for (CompanyData data in dataaCompanyData!) {
+  //         // await _dbHelper.getOneData(data.id!);
+  //         CompanyDbHelper.dbHelper.insertNewRecipe(data!);
+  //
+  //
+  //
+  //         setState(() {
+  //           counter = counter + 1;
+  //           percent = ((counter / dataa!.length) * 100);
+  //         });
+  //         print("parcentent------------------->${percent}");
+  //
+  //         if (percent == 100.0) {
+  //           Future.delayed(Duration(seconds: 4), () {
+  //             Navigator.of(context).pushReplacement(
+  //                 MaterialPageRoute(builder: (context) => BottomBarWidget()));
+  //           });
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

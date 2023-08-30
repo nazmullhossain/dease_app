@@ -1,9 +1,11 @@
 import 'package:aiataf/provider/brand_provider.dart';
+import 'package:aiataf/provider/company_provider.dart';
 import 'package:aiataf/services/brands_services.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/brands_models.dart';
+import '../company_pages.dart';
 import 'linear_widget/drug/drug_widget.dart';
 
 class DragLinearPage extends StatefulWidget {
@@ -60,6 +62,14 @@ class _DragLinearPageState extends State<DragLinearPage> with SingleTickerProvid
                 // provider.joinGetData();
                 provider.getRecipes();
               }, icon: Icon(Icons.add));
+            }
+          ),
+          Consumer<CompanyProvider>(
+
+            builder: (BuildContext context, provider, Widget? child) {
+              return IconButton(onPressed: (){
+                provider.getRecipes();
+              }, icon: Icon(Icons.comment));
             }
           )
         ],
@@ -118,7 +128,7 @@ class _DragLinearPageState extends State<DragLinearPage> with SingleTickerProvid
                 child: [
 
                   DrugItemWidget(),
-                  DrugItemWidget(),
+                  CompanyItemWidget(),
                   DrugItemWidget(),
                   DrugItemWidget(),
 
