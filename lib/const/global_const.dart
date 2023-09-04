@@ -23,6 +23,47 @@ class GlobalVarriable {
   static var selectedNavBarColor=Colors.cyan[800]!;
   static const unSelectedNavBarColor=Colors.black87;
 
+
+
+  static const List<Map<String, String>> categoryImages = [
+    {
+      'title': 'Diseases',
+      'image': 'images/atlas.png',
+    },
+    {
+      'title': 'Drugs',
+      'image': 'images/drugs.png',
+    },
+    {
+      'title': 'Tests',
+      'image': 'images/atlas.png',
+    },
+    {
+      'title': 'Atlas',
+      'image': 'images/atlas.png',
+    },
+    {
+      'title':  'Videos',
+      'image': 'images/atlas.png',
+    },
+    {
+      'title':  'Quizzes',
+      'image':'images/mcq.png',
+    },
+    {
+      'title': 'Case Studis',
+      'image':'images/atlas.png',
+    },
+    {
+      'title': 'Consultants',
+      'image':'images/atlas.png',
+    },
+  ];
+
+
+
+
+
   static List<MyListItem> items = [
     MyListItem(
       title: 'Diseases',

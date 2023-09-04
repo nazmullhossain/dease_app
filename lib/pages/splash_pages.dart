@@ -141,10 +141,12 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CircularProgressIndicator(
-              valueColor:
-                  AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
-            ),
+            // CircularProgressIndicator(
+            //   valueColor:
+            //       AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
+            // ),
+
+            Text("Retrieval and storage of data in the application database${  percent}%"),
             if (_isConnected)
               Padding(
                 padding: const EdgeInsets.all(15.0),

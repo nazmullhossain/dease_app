@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 import '../models/generic_model.dart';
 import 'package:http/http.dart' as http;
 class GenericService{
-  Future<List<GenericData>> getCompany(BuildContext context) async {
+  Future<List<GenericData>> getGeneric(BuildContext context) async {
     List <GenericData>insertGeneric=[];
 
     try {
       final String url =
-          "3eb46242aad791aefa762d89a01f631aa5c09f1c73c3bae55df33bcaaa769c";
+          "http://skinvd.itmapi.com/api/drugs/generics?limit=20&page=34&date=2022-05-12";
 
       Map<String, String> headers = {
         "Accept": "application/json",
@@ -18,7 +18,7 @@ class GenericService{
       };
 
       http.Response res = await http.get(Uri.parse(url), headers: headers);
-      print("company data${res.body}");
+      print("generic data${res.body}");
 
       if (res.statusCode == 200) {
         var jsonRes = jsonDecode(res.body);
@@ -29,7 +29,7 @@ class GenericService{
         for (GenericData data in genericModelModel.data!) {
           insertGeneric.add(data);
         }
-      } else {}
+      }
     } catch (e) {
       print(e.toString());
     }

@@ -21,10 +21,19 @@ class _DrugItemWidgetState extends State<DrugItemWidget> {
 
   BrandServices brandServices = BrandServices();
   ComapanyServices companyServices = ComapanyServices();
+  int currentPage = 1;
+  int itemsPerPage = 10;
 
   getBrand() async {
-    data = await brandServices.geBrand(context);
-    setState(() {});
+     data = await brandServices.geBrand(context);
+     print("brand length----------------->${data!.length}");
+    setState(() {
+      // data!.addAll(newData);
+      // currentPage++;
+      // itemsPerPage++;
+    });
+
+
   }
 
   // getComapany() async {
@@ -47,7 +56,7 @@ class _DrugItemWidgetState extends State<DrugItemWidget> {
         : Padding(
             padding: EdgeInsets.all(10),
             child: SizedBox(
-              height: 800,
+              height: 500,
               child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
@@ -55,35 +64,43 @@ class _DrugItemWidgetState extends State<DrugItemWidget> {
                   itemBuilder: (context, index) {
                     final dataa = data![index];
                     // final dataaCompany = dataCompanyData![index];
-                    return Container(
-                      padding: EdgeInsets.all(4),
-                      margin: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white70),
-                      child: ListTile(
-                        onTap: (){
-                          DbHelper.dbHelper.insertNewRecipe(dataa);
-                        },
-                        title: RichText(
-                          text: TextSpan(
-                              text: "${dataa.name}",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 25),
-                              children: [
-                                TextSpan(
 
-                                    text: "  ${dataa.strength}",
-                                    style: TextStyle(
-                                        color: Colors.black54, fontSize: 12,))
-                              ]),
-                        ),
-                        // subtitle: dataCompanyData==null?Text("No data avaialbe") :Text("${dataaCompany.name}"),
-                        trailing: Text("${dataa.form}",style: TextStyle(fontSize: 18),),
-                      ),
-                    );
+
+
+                         return   Container(
+                           padding: EdgeInsets.all(4),
+                           margin: EdgeInsets.all(5),
+                           decoration: BoxDecoration(
+                               borderRadius: BorderRadius.circular(10),
+                               color: Colors.white70),
+                           child: ListTile(
+                             onTap: (){
+                               // DbHelper.dbHelper.insertNewRecipe(data.);
+                             },
+                             title: RichText(
+                               text: TextSpan(
+                                   text: "${dataa.name}",
+                                   style: const TextStyle(
+                                       color: Colors.white,
+                                       fontWeight: FontWeight.w400,
+                                       fontSize: 25),
+                                   children: [
+                                     TextSpan(
+
+                                         text: "  ${dataa.strength}",
+                                         style: TextStyle(
+                                           color: Colors.black54, fontSize: 12,))
+                                   ]),
+                             ),
+                             // subtitle: dataCompanyData==null?Text("No data avaialbe") :Text("${dataaCompany.name}"),
+                             trailing: Text("${dataa.form}",style: TextStyle(fontSize: 18,color: Colors.white),),
+                           ),
+                         );
+
+
+
+
+
                   }),
             ),
           );

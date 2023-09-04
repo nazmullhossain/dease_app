@@ -98,37 +98,36 @@
 //
 // }
 
-
-
-
 import 'dart:io';
-
 
 import 'package:aiataf/models/brands_models.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../models/company_model.dart';
+import '../models/generic_model.dart';
 
-
-
-class DbHelper {
+class GenericDbHelper {
   late Database database;
-  static DbHelper dbHelper = DbHelper();
-  final String tableName = 'branddata';
-  final String companyIdColumn = 'company_id';
+  static GenericDbHelper dbHelper = GenericDbHelper();
+  final String tableName = 'generic';
+  final String precautionIdColumn = 'precaution';
   final String idColumn = 'id';
-  final String genericIdColumn = 'generic_id';
-  final String  nameColumn = 'name';
-  final String formColumn = 'form';
-  final String packsizeColumn = 'packsize';
-  final String strengthColumn = 'strength';
-  final String priceColumn = 'price';
+  final String indicationIdColumn = 'indication';
+  final String nameColumn = 'name';
+  final String contraIndicationColumn = 'contraIndication';
+  final String sideEffectColumn = 'sideEffect';
+  final String modeOfActionColumn = 'modeOfAction';
+  final String interactionColumn = 'interaction';
+  final String pregnancyColumn = 'pregnancyCategoryNote';
+  final String adultDoseColumn = 'adult_dose';
+  final String childDoseColumn = 'child_dose';
+  final String renalDoseColumn = 'renal_dose';
+  final String administrationColumn = 'administration';
   final String createdAtColumn = 'created_at';
   final String updatedAtColumn = 'updated_at';
-  final String deleteAtColumn = 'deleted_at';
-
-
+  final String deletedAtColumn = 'deleted_at';
+  final String therapeuticsColumn = 'therapeutics';
 
   initDatabase() async {
     database = await connectToDatabase();
@@ -136,23 +135,19 @@ class DbHelper {
 
   Future<Database> connectToDatabase() async {
     Directory directory = await getApplicationDocumentsDirectory();
-    String path = '$directory/mybrandd.db';
+    String path = '$directory/generictable.db';
     return openDatabase(
       path,
       version: 1,
       onCreate: (db, version) {
         db.execute(
-          // 'CREATE TABLE $tableName ($idColumn INTEGER PRIMARY KEY AUTOINCREMENT, $productNameColumn TEXT, $priceColumn INTEGER,$vatPercentColumn INTEGER,  $categoryNameColumn TEXT, $companyNameColumn TEXT, $unitNameColumn TEXT,$genericNameColumn TEXT,$strengthColumn TEXT,)');
+            // 'CREATE TABLE $tableName ($idColumn INTEGER PRIMARY KEY AUTOINCREMENT, $productNameColumn TEXT, $priceColumn INTEGER,$vatPercentColumn INTEGER,  $categoryNameColumn TEXT, $companyNameColumn TEXT, $unitNameColumn TEXT,$genericNameColumn TEXT,$strengthColumn TEXT,)');
 
-
-            'CREATE TABLE $tableName ($idColumn INTEGER PRIMARY KEY AUTOINCREMENT, $nameColumn TEXT, $companyIdColumn INTEGER, $genericIdColumn INTEGER, $formColumn TEXT, $packsizeColumn TEXT, $strengthColumn TEXT,$priceColumn TEXT,$createdAtColumn TEXT,$updatedAtColumn TEXT,$deleteAtColumn TEXT)');
-
-
-
+            'CREATE TABLE $tableName ($idColumn INTEGER PRIMARY KEY AUTOINCREMENT, $nameColumn TEXT, $precautionIdColumn TEXT, $indicationIdColumn TEXT, $contraIndicationColumn TEXT, $sideEffectColumn TEXT, $modeOfActionColumn TEXT,$interactionColumn TEXT,$createdAtColumn TEXT,$updatedAtColumn TEXT,$pregnancyColumn TEXT,$adultDoseColumn TEXT,$childDoseColumn TEXT,$renalDoseColumn TEXT,$administrationColumn TEXT,$therapeuticsColumn TEXT,$deletedAtColumn TEXT)');
       },
       onUpgrade: (db, oldVersion, newVersion) {
         db.execute(
-            'CREATE TABLE $tableName ($idColumn INTEGER PRIMARY KEY AUTOINCREMENT, $nameColumn TEXT, $companyIdColumn INTEGER, $genericIdColumn INTEGER, $formColumn TEXT, $packsizeColumn TEXT, $strengthColumn TEXT,$priceColumn TEXT,$createdAtColumn TEXT,$updatedAtColumn TEXT,$deleteAtColumn TEXT)');
+            'CREATE TABLE $tableName ($idColumn INTEGER PRIMARY KEY AUTOINCREMENT, $nameColumn TEXT, $precautionIdColumn TEXT, $indicationIdColumn INTEGER, $contraIndicationColumn TEXT, $sideEffectColumn TEXT, $modeOfActionColumn TEXT,$interactionColumn TEXT,$createdAtColumn TEXT,$updatedAtColumn TEXT,$pregnancyColumn TEXT,$adultDoseColumn TEXT,$childDoseColumn TEXT,$renalDoseColumn TEXT,$administrationColumn TEXT,$therapeuticsColumn TEXT,$deletedAtColumn TEXT)');
       },
       onDowngrade: (db, oldVersion, newVersion) {
         db.delete(tableName);
@@ -160,18 +155,18 @@ class DbHelper {
     );
   }
 
-  Future<List<Data>> getAllRecipes() async {
+  Future<List<GenericData>> getAllGeneric() async {
     List<Map<String, dynamic>> tasks = await database.query(tableName);
 
-    print("brand data---------------------.${tasks}");
+    print("data---------------------.${tasks}");
 
-
-    print("grand length-------------------->${tasks.length}");
-    return tasks.map((e) => Data.fromJson(e)).toList();
+    print("lentht-------------------->${tasks.length}");
+    return tasks.map((e) => GenericData.fromJson(e)).toList();
   }
 
-  insertNewRecipe(Data recipeModel) {
-    database.insert(tableName, recipeModel.toJson(),conflictAlgorithm: ConflictAlgorithm.replace);
+  insertNewRecipe(GenericData genericData) {
+    database.insert(tableName, genericData.toJson(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   // insertNewRecipe2(CompanyData recipeModel) {
@@ -179,29 +174,23 @@ class DbHelper {
   // }
 
   deleteRecipe(Data recipeModel) {
-    database
-        .delete(tableName, where: '$idColumn=?', whereArgs: [recipeModel]);
+    database.delete(tableName, where: '$idColumn=?', whereArgs: [recipeModel]);
   }
 
   deleteRecipes() {
     database.delete(tableName);
-
   }
 
-
-
-  Future<List<Map<String, dynamic>>> getAllData() async {
-    final db = await database;
-    return await db.rawQuery('''
-    select 
-    company.company_name, branddata.* 
-    from branddata 
-    left join company on branddata.company_id = company.id 
-    ''');
-  }
+  // Future<List<Map<String, dynamic>>> getAllData() async {
+  //   final db = await database;
+  //   return await db.rawQuery('''
+  //   select
+  //   company.company_name, branddata.*
+  //   from branddata
+  //   left join company on branddata.company_id = company.id
+  //   ''');
+  //
+  //
+  //
+  // }
 }
-
-
-
-
-

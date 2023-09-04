@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:aiataf/const/error_handling.dart';
+import 'package:aiataf/helper/brand_database_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -20,7 +21,10 @@ class BrandServices {
 
 
   try{
-    final String url = "http://skinvd.itmapi.com/api/drugs/brands";
+
+    // final String url = "http://skinvd.itmapi.com/api/drugs/brands?limit=100&page=50";
+    // final String url = "http://skinvd.itmapi.com/api/drugs/brands?limit=$limit&page=$page";$page";
+    final String url = "http://skinvd.itmapi.com/api/drugs/brands?limit=1000";
 
      Map<String, String> headers = {
         "Accept": "application/json",
@@ -39,7 +43,9 @@ class BrandServices {
         BrandModel brandModel=BrandModel.fromJson(jsonRes);
 
         for(Data data in brandModel.data!){
+          await  DbHelper.dbHelper.insertNewRecipe(data);
             insertData.add(data);
+
         }
 
       }

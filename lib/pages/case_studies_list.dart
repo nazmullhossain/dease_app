@@ -11,10 +11,10 @@ class CaseStudiesList extends StatelessWidget {
       
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Case Studies List"),
+        title: const Text("Case Studies List"),
         
         
-        actions: [
+        actions: const [
           Row(
             children: [
               Icon(Icons.notification_add_outlined),
@@ -32,19 +32,19 @@ class CaseStudiesList extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SearchWidget(),
-              SizedBox(height: 10,),
-              Text("SkinVd Clinal Team"),
+              const SearchWidget(),
+              const SizedBox(height: 10,),
+              const Text("SkinVd Clinal Team"),
 
-              SizedBox(height: 10,),
-              Text("Shiny,waxy Papules on face and extremiites in a \n female with dyspnea",
+              const SizedBox(height: 10,),
+              const Text("Shiny,waxy Papules on face and extremiites in a \n female with dyspnea",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
 
               ),),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
 
-              Text("A 40-years-old woman prested with asymptomatic \n pinkins red raised lession over face, neck, and upeer extermites since six months")
+              const Text("A 40-years-old woman prested with asymptomatic \n pinkins red raised lession over face, neck, and upeer extermites since six months")
              ,Image.asset("images/welcome banner.png",
               height: 250,width: double.infinity,)
 

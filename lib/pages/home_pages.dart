@@ -5,31 +5,54 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../const/global_const.dart';
-
 
 import '../provider/company_provider.dart';
 import '../services/brands_services.dart';
 import '../services/companies_service.dart';
 import '../widget/search_widget.dart';
 import '../widget/slider_widget.dart';
+import 'linear_page/doctor_linear/doctor_list_linear.dart';
 import 'linear_page/drug_linnear_page.dart';
+import 'linear_page/linear_widget/atlas_linear/atlas_catagory_linear.dart';
+import 'linear_page/linear_widget/diseases/diseases_list_linear_widget.dart';
+import 'linear_page/quiz_linear/quiz_category_linear.dart';
+import 'linear_page/test_linear/investiongation_test_linear.dart';
+import 'linear_page/video_linear/video_list_linear.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
+  static const String routeName = "/home";
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  void navigateToSearchScreen(BuildContext context, MyListItem item) {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => DragLinearPage()));
-  }
+  // void navigateToSearchScreen(BuildContext context,String catagory) {
+  //   Navigator.pushNamed(context, CategoryDealsScreen.routeName,arguments: catagory);
+  // }
 
   List<CompanyData>? data;
+
+  String? dateString;
+
+  Future<void> saveDate(DateTime date) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString("date", date.toIso8601String());
+  }
+
+  Future<DateTime?> getDate() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    dateString = prefs.getString("date");
+    print("data-------------->${dateString}");
+    if (dateString != null) {
+      return DateTime.tryParse(dateString!);
+    }
+    return null;
+  }
 
   ComapanyServices brandServices = ComapanyServices();
 
@@ -42,12 +65,9 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     getCompany();
+    getDate();
     super.initState();
   }
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                 Container(
                   color: Colors.transparent,
                   height: 42,
-                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
                   child: Image.asset("images/skinVD-logo.png"),
                 ),
                 RichText(
@@ -85,70 +105,126 @@ class _HomePageState extends State<HomePage> {
             ),
             actions: [
               Consumer<CompanyProvider>(
-
-                builder: (BuildContext context, provider, Widget? child) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: [
-                        InkWell(
-                           onTap: (){
-                             provider.getRecipes();
-                             // DateFormat('yyyy-MM-dd').format(DateTime.now());
-                             // DbHelper.dbHelper.insertNewRecipe(data as Data);
-                            },
-
-                            child: Icon(Icons.sync)),
-                        RichText(
-                            text: TextSpan(
-                                text: "Last sync",
-                                style: TextStyle(fontSize: 10),
-                                children: [
-                              TextSpan(
-                                  text: " 06/08/23",
-                                  style: TextStyle(
-                                    fontSize: 10,
-                                  ))
-                            ]))
-                      ],
-                    ),
-                  );
-                }
-              )
+                  builder: (BuildContext context, provider, Widget? child) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      InkWell(
+                          onTap: () {
+                            // provider.getRecipes();
+                            // currentDate: DateFormat('yyyy-MM-dd').format(DateTime.now()),
+                            // String formattedDate = "${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}";
+                            saveDate(DateTime.now());
+                            getDate();
+                            setState(() {});
+                            // DateFormat('yyyy-MM-dd').format(DateTime.now());
+                            // DbHelper.dbHelper.insertNewRecipe(data as Data);
+                          },
+                          child: Icon(Icons.sync)),
+                      RichText(
+                          text: TextSpan(
+                              text: "Last sync",
+                              style: TextStyle(fontSize: 5),
+                              children: [
+                            TextSpan(
+                                text: " ${dateString}",
+                                style: TextStyle(
+                                  fontSize: 8,
+                                ))
+                          ]))
+                    ],
+                  ),
+                );
+              })
             ],
           ),
         ),
         body: data == null
-            ? Center(
+            ? const Center(
                 child: Text("no data "),
               )
             : SingleChildScrollView(
                 child: Column(
                   children: [
-                    SliderScreen(),
-                    SizedBox(
+                    const SliderScreen(),
+                    const SizedBox(
                       height: 5,
                     ),
                     Container(
                       child: Column(
                         children: [
-                          SearchWidget(),
+                          const SearchWidget(),
                           SizedBox(
                             height: 175,
                             child: GridView.builder(
                                 physics: NeverScrollableScrollPhysics(),
-                                itemCount: GlobalVarriable.items.length,
+                                itemCount:
+                                    GlobalVarriable.categoryImages.length,
                                 gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                    const SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisSpacing: 20,
                                         // mainAxisSpacing: 10,
                                         crossAxisCount: 4),
                                 itemBuilder: (context, index) {
                                   return InkWell(
                                     onTap: () {
-                                      navigateToSearchScreen(context,
-                                          GlobalVarriable.items[index]);
+                                      if (index == 0) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DieasesListWidget()));
+                                      }
+                                      if (index == 1) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DragLinearPage()));
+                                      }
+
+                                      if (index == 2) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    InvestigationList()));
+                                      }
+                                      if (index == 3) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    AtlasCatagoryLinear()));
+                                      }
+                                      if (index == 4) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    VideoLinearList()));
+                                      }
+                                      if (index == 5) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    QuizCatagoryLinear()));
+                                      }
+                                      if (index == 7) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    DoctorListLinear()));
+                                      }
                                     },
+
+                                    // navigateToSearchScreen(context,
+                                    //     GlobalVarriable.categoryImages[index]["title"] as MyListItem)
+                                    // >navigateToCategoryPage(context, GlobalVariables.categoryImages[index]['title']!),
+
                                     child: Container(
                                       child: Column(
                                         mainAxisAlignment:
@@ -159,7 +235,7 @@ class _HomePageState extends State<HomePage> {
                                             width: 30,
                                             height: 30,
                                           ),
-                                          SizedBox(
+                                          const SizedBox(
                                             height: 5,
                                           ),
                                           Text(
@@ -187,10 +263,10 @@ class _HomePageState extends State<HomePage> {
                               height: 49,
                               width: 49,
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 2,
                             ),
-                            Text(
+                            const Text(
                               "Derma Update",
                               style: TextStyle(
                                 fontSize: 20,
@@ -238,7 +314,7 @@ class _HomePageState extends State<HomePage> {
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.white),
                               onPressed: () {},
-                              child: Text(
+                              child: const Text(
                                 "View All",
                                 style: TextStyle(
                                   color: Colors.black,
@@ -268,8 +344,8 @@ class _HomePageState extends State<HomePage> {
                                   fit: BoxFit.cover,
                                 ),
                                 title: Text("${prod.name}"),
-                                subtitle:
-                                    Text("American Familly Physican(AFp)"),
+                                subtitle: const Text(
+                                    "American Familly Physican(AFp)"),
                               ),
                             );
                           }),
@@ -281,6 +357,9 @@ class _HomePageState extends State<HomePage> {
                     //     color:
                     //   ),
                     // )
+                    SizedBox(
+                      height: 50,
+                    ),
                   ],
                 ),
               ));
