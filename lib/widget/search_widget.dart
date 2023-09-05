@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SearchWidget extends StatelessWidget {
-  const SearchWidget({super.key});
+   SearchWidget({super.key,required this.hintText});
+  String hintText;
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +18,8 @@ class SearchWidget extends StatelessWidget {
               color: Color(0xff516E95), fontSize: 12),
 
 
-          hintText: "Search Brand /Diseases",
-          fillColor: Color(0xffFFFFFF),
+          hintText:hintText,
+          fillColor: Color(0xffFCFCFC),
           filled: true,
           enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(40),

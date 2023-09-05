@@ -74,7 +74,7 @@ class _SliderScreenState extends State<SliderScreen> {
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
                           color:
-                          currentIndex == entry.key ? Color(0xff1479FF) : Color(0xffB4C7DE)),
+                          currentIndex == entry.key ? Color(0xff29B0B0) : Color(0xffB4C7DE)),
                     ),
                   );
                 }).toList(),

@@ -8,15 +8,21 @@ class QuizPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Color(0xffEBE5D9),
 
 
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(60),
         child: AppBar(
+
+          backgroundColor: Color(0xffEBE5D9),
           centerTitle: true,
-          elevation: 0,
-        leading: Icon(Icons.arrow_left_outlined),
+          elevation: 1,
+        leading: InkWell(
+            onTap: (){
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back)),
 
         title: Text("Quiz List"),
         ),
@@ -50,7 +56,7 @@ class QuizPage extends StatelessWidget {
 
 
                   trailing: Container(
-                    child: Icon(Icons.arrow_left_outlined),
+                    child: Icon(Icons.arrow_forward),
                   ),
 
 

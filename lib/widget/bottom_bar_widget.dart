@@ -27,7 +27,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
     HomePage(),
 
     QuizPage(),
-    CaseStudiesList(),
+
     ImageListPage(),
 
     MorePage()
@@ -91,6 +91,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
 
 
 
+
           BottomNavigationBarItem(icon: Container(
             width:bottomBarWidth ,
             decoration: BoxDecoration(
@@ -104,27 +105,9 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                     )
                 )
             ),
-            child: Icon(Icons.notification_add_outlined),
+            child: Icon(Icons.notification_add),
           ),
               label: "Notification"
-          ),
-
-          BottomNavigationBarItem(icon: Container(
-            width:bottomBarWidth ,
-            decoration: BoxDecoration(
-                border: Border(
-                    top: BorderSide(
-                      color: _page==3?
-                      GlobalVarriable.selectedNavBarColor
-                          : GlobalVarriable.backGroundColor,
-                      width: bottomBarBorderWidth,
-
-                    )
-                )
-            ),
-            child: Icon(Icons.person),
-          ),
-              label: "Profile"
           ),
           BottomNavigationBarItem(icon: Container(
             width:bottomBarWidth ,
@@ -139,7 +122,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                     )
                 )
             ),
-            child: Icon(Icons.person),
+            child: Icon(Icons.menu),
           ),
               label: "More"
           ),

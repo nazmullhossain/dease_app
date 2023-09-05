@@ -40,6 +40,30 @@ class DiseaseContentLinear extends StatelessWidget {
               ),
             ),
 
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+              width: MediaQuery.of(context).size.width,
+              height: 60,
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                color: Color.fromARGB(225, 50, 54, 56),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: TextFormField(
+                decoration: InputDecoration(
+                    fillColor: Colors.white,
+                    prefixIcon: Icon(
+                      Icons.search,
+                      size: 30,
+                      color: Colors.white.withOpacity(0.5),
+                    ),
+                    border: InputBorder.none,
+                    hintText: "Search by doctor name",
+                    hintStyle:
+                    TextStyle(color: Colors.white.withOpacity(0.5))),
+              ),
+            ),
+
             SizedBox(height: 10,),
       SizedBox(
         height: 500,

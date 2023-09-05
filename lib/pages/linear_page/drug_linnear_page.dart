@@ -1,6 +1,7 @@
 import 'package:aiataf/provider/brand_provider.dart';
 import 'package:aiataf/provider/company_provider.dart';
 import 'package:aiataf/services/brands_services.dart';
+import 'package:aiataf/widget/search_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -53,9 +54,11 @@ class _DragLinearPageState extends State<DragLinearPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black26,
+      backgroundColor: Color(0xffEBE5D9),
       appBar: AppBar(
-        title: Text("Drugs"),
+        elevation: 1,
+        backgroundColor: Color(0xffEBE5D9),
+        title: Text("Drugs",style: TextStyle(color: Colors.black),),
         centerTitle: true,
         actions: [
           Consumer<RecipeClass>(
@@ -90,54 +93,41 @@ class _DragLinearPageState extends State<DragLinearPage>
           height: 800,
           child: ListView(
             children: [
-              TabBar(
-                  controller: _tabController,
-                  labelColor: Color(0xFFE57734),
-                  unselectedLabelColor: Colors.white.withOpacity(0.5),
-                  isScrollable: true,
-                  indicator: UnderlineTabIndicator(
-                      borderSide:
-                          BorderSide(width: 3, color: Color(0xFFE57734)),
-                      insets: EdgeInsets.symmetric(horizontal: 16)),
-                  labelStyle:
-                      TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
-                  labelPadding: EdgeInsets.symmetric(horizontal: 20),
-                  tabs: [
-                    Tab(
-                      text: "Brand",
-                    ),
-                    Tab(
-                      text: "Generic",
-                    ),
-                    Tab(
-                      text: "Therapeutic",
-                    ),
-                    Tab(
-                      text: "Americano",
-                    ),
-                  ]),
               Container(
-                margin: EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-                width: MediaQuery.of(context).size.width,
-                height: 60,
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(225, 50, 54, 56),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: TextFormField(
-                  decoration: InputDecoration(
-                      prefixIcon: Icon(
-                        Icons.search,
-                        size: 30,
-                        color: Colors.white.withOpacity(0.5),
+                margin: EdgeInsets.only(top: 20,right: 10,left: 10),
+         decoration: BoxDecoration(
+             border: Border.all(color: Colors.blueAccent),
+           color: Color(0xffEBE5D9)
+               ,borderRadius: BorderRadius.circular(5)
+         ),
+                child: TabBar(
+                    controller: _tabController,
+                    labelColor: Color(0xFFE57734),
+                    unselectedLabelColor: Colors.white.withOpacity(0.5),
+                    isScrollable: true,
+                    indicator: UnderlineTabIndicator(
+                        borderSide:
+                            BorderSide(width: 3, color: Color(0xFFE57734)),
+                        insets: EdgeInsets.symmetric(horizontal: 16)),
+                    labelStyle:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+                    labelPadding: EdgeInsets.symmetric(horizontal: 20),
+                    tabs: [
+                      Tab(
+                        text: "Brand",
                       ),
-                      border: InputBorder.none,
-                      hintText: "Search by brand name",
-                      hintStyle:
-                          TextStyle(color: Colors.white.withOpacity(0.5))),
-                ),
+                      Tab(
+                        text: "Generic",
+                      ),
+                      Tab(
+                        text: "Therapeutic",
+                      ),
+                      Tab(
+                        text: "Americano",
+                      ),
+                    ]),
               ),
+             SearchWidget(hintText: "Search by brand name"),
               SizedBox(
                 height: 10,
               ),

@@ -1,6 +1,7 @@
 import 'package:aiataf/helper/brand_database_helper.dart';
 import 'package:aiataf/models/brands_models.dart';
 import 'package:aiataf/models/company_model.dart';
+import 'package:aiataf/pages/quiz_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
@@ -14,6 +15,7 @@ import '../services/brands_services.dart';
 import '../services/companies_service.dart';
 import '../widget/search_widget.dart';
 import '../widget/slider_widget.dart';
+import 'case_studies_list.dart';
 import 'linear_page/doctor_linear/doctor_list_linear.dart';
 import 'linear_page/drug_linnear_page.dart';
 import 'linear_page/linear_widget/atlas_linear/atlas_catagory_linear.dart';
@@ -38,6 +40,7 @@ class _HomePageState extends State<HomePage> {
   List<CompanyData>? data;
 
   String? dateString;
+  bool _isPlaying = false;
 
   Future<void> saveDate(DateTime date) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -72,14 +75,16 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.grey,
+        backgroundColor: Color(0xffEBE5D9),
         appBar: PreferredSize(
-          preferredSize: Size.fromHeight(60),
+          preferredSize: const Size.fromHeight(60),
           child: AppBar(
-            elevation: 0,
+            elevation: 1,
             flexibleSpace: Container(
-              decoration:
-                  BoxDecoration(gradient: GlobalVarriable.appBarGradiant),
+              decoration: const BoxDecoration(
+                color: Color(0xffEBE5D9),
+                // gradient: GlobalVarriable.appBarGradiant
+              ),
             ),
             title: Row(
               children: [
@@ -90,10 +95,12 @@ class _HomePageState extends State<HomePage> {
                   child: Image.asset("images/skinVD-logo.png"),
                 ),
                 RichText(
-                    text: TextSpan(
+                    text: const TextSpan(
                         text: "SkinVD",
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xff0EBBBB)),
                         children: [
                       TextSpan(
                           text: " 1.03",
@@ -121,17 +128,20 @@ class _HomePageState extends State<HomePage> {
                             // DateFormat('yyyy-MM-dd').format(DateTime.now());
                             // DbHelper.dbHelper.insertNewRecipe(data as Data);
                           },
-                          child: Icon(Icons.sync)),
+                          child: const Icon(
+                            Icons.sync,
+                            color: Color(0XFF7C8F92),
+                          )),
                       RichText(
                           text: TextSpan(
                               text: "Last sync",
-                              style: TextStyle(fontSize: 5),
+                              style: const TextStyle(
+                                  fontSize: 5, color: Color(0xff7C8F92)),
                               children: [
                             TextSpan(
                                 text: " ${dateString}",
-                                style: TextStyle(
-                                  fontSize: 8,
-                                ))
+                                style: const TextStyle(
+                                    fontSize: 8, color: Color(0xff7C8F92)))
                           ]))
                     ],
                   ),
@@ -152,9 +162,12 @@ class _HomePageState extends State<HomePage> {
                       height: 5,
                     ),
                     Container(
+                      color: const Color(0xffF2EFE8),
                       child: Column(
                         children: [
-                          const SearchWidget(),
+                          SearchWidget(
+                            hintText: 'Search Brand/Diseases',
+                          ),
                           SizedBox(
                             height: 175,
                             child: GridView.builder(
@@ -203,14 +216,22 @@ class _HomePageState extends State<HomePage> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    VideoLinearList()));
+                                                    const VideoLinearList()));
                                       }
                                       if (index == 5) {
                                         Navigator.push(
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    QuizCatagoryLinear()));
+                                                    const QuizPage()));
+                                      }
+                                      if (index == 6) {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const CaseStudiesList(),
+                                            ));
                                       }
                                       if (index == 7) {
                                         Navigator.push(
@@ -240,7 +261,7 @@ class _HomePageState extends State<HomePage> {
                                           ),
                                           Text(
                                             GlobalVarriable.items[index].title,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w500),
                                           )
@@ -253,102 +274,147 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Image.asset(
-                              "images/investigations.png",
-                              height: 49,
-                              width: 49,
-                            ),
-                            const SizedBox(
-                              width: 2,
-                            ),
-                            const Text(
-                              "Derma Update",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Image.asset(
+                                "images/investigations.png",
+                                height: 49,
+                                width: 49,
                               ),
-                            )
-                          ],
-                        ),
+                              const SizedBox(
+                                width: 2,
+                              ),
+                              const Text(
+                                "Derma Update",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: Color(0xff1E3445),
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              )
+                            ],
+                          ),
+                          SizedBox(
+                            height: 4,
+                          ),
 
-                        // Container(
-                        //
-                        //   padding: EdgeInsets.all(10),
-                        //   margin: EdgeInsets.only(right: 10),
-                        //   decoration: BoxDecoration(
-                        //
-                        //       borderRadius: BorderRadius.circular(40),
-                        //       boxShadow: [
-                        //         BoxShadow(
-                        //
-                        //           color: Colors.white,
-                        //           blurRadius: 1,
-                        //           spreadRadius: 5,
-                        //
-                        //
-                        //
-                        //         )
-                        //       ]
-                        //   ),
-                        //   child: Text("View All",style: TextStyle(fontWeight: FontWeight.bold),),
-                        // )
+                          // Container(
+                          //
+                          //   padding: EdgeInsets.all(10),
+                          //   margin: EdgeInsets.only(right: 10),
+                          //   decoration: BoxDecoration(
+                          //
+                          //       borderRadius: BorderRadius.circular(40),
+                          //       boxShadow: [
+                          //         BoxShadow(
+                          //
+                          //           color: Colors.white,
+                          //           blurRadius: 1,
+                          //           spreadRadius: 5,
+                          //
+                          //
+                          //
+                          //         )
+                          //       ]
+                          //   ),
+                          //   child: Text("View All",style: TextStyle(fontWeight: FontWeight.bold),),
+                          // )
 
-                        // Material(
-                        //
-                        //
-                        //   elevation: 5,
-                        //
-                        //
-                        //   borderRadius: BorderRadius.circular(20),
-                        //   color: Colors.white,
-                        //   child: Text("View All",style: TextStyle(fontSize: 20),),
-                        // )
-                        Padding(
-                          padding: const EdgeInsets.only(right: 10),
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                  backgroundColor: Colors.white),
-                              onPressed: () {},
-                              child: const Text(
+                          // Material(
+                          //
+                          //
+                          //   elevation: 5,
+                          //
+                          //
+                          //   borderRadius: BorderRadius.circular(20),
+                          //   color: Colors.white,
+                          //   child: Text("View All",style: TextStyle(fontSize: 20),),
+                          // )
+                          // Padding(
+                          //   padding: const EdgeInsets.only(right: 10),
+                          //   child: ElevatedButton(
+                          //       style: ElevatedButton.styleFrom(
+                          //
+                          //           backgroundColor: Colors.white),
+                          //       onPressed: () {},
+                          //       child: const Text(
+                          //         "View All",
+                          //         style: TextStyle(
+                          //           color: Colors.black,
+                          //         ),
+                          //       )),
+                          // )
+
+                          Padding(
+                            padding: EdgeInsets.only(right: 5),
+                            child: Container(
+                              alignment: Alignment.center,
+                              width: 80,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Color(0xffFCFCFC),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 1,
+                                      blurRadius: 7,
+                                      offset: Offset(0, 3),
+                                    )
+                                  ]),
+                              child: Text(
                                 "View All",
                                 style: TextStyle(
-                                  color: Colors.black,
-                                ),
-                              )),
-                        )
-                      ],
+                                    fontWeight: FontWeight.bold,
+                                    color: Color(0xff29B0B0)),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
 
-                    SizedBox(
-                      height: 200,
-                      child: ListView.builder(
-                          itemCount: data!.length,
-                          itemBuilder: (context, index) {
-                            final prod = data![index];
-                            return Container(
-                              padding: EdgeInsets.all(20),
-                              margin: EdgeInsets.all(10),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white),
-                              child: ListTile(
-                                leading: Image.asset(
-                                  "images/welcome banner.png",
-                                  width: 50,
-                                  height: 50,
-                                  fit: BoxFit.cover,
+                    Scrollbar(
+
+                      child: SizedBox(
+                        height: 300,
+                        child: ListView.builder(
+                            itemCount: data!.length,
+                            itemBuilder: (context, index) {
+                              final prod = data![index];
+                              return Container(
+                                padding: EdgeInsets.all(20),
+                                margin: EdgeInsets.only(left: 8,right: 8,top: 5),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.withOpacity(0.5),
+                                        spreadRadius: 5,
+                                        blurRadius: 7,
+                                        offset: Offset(0, 3),
+                                      )
+                                    ],
+                                    color: Color(0XFFF2EFE8)),
+                                child: ListTile(
+                                  leading: Image.asset(
+                                    "images/welcome banner.png",
+                                    width: 50,
+                                    height: 50,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  title: Text("${prod.name}"),
+                                  subtitle: const Text(
+                                      "American Familly Physican(AFp)"),
                                 ),
-                                title: Text("${prod.name}"),
-                                subtitle: const Text(
-                                    "American Familly Physican(AFp)"),
-                              ),
-                            );
-                          }),
+                              );
+                            }),
+                      ),
                     ),
 
                     // Container(
@@ -357,7 +423,7 @@ class _HomePageState extends State<HomePage> {
                     //     color:
                     //   ),
                     // )
-                    SizedBox(
+                    const SizedBox(
                       height: 50,
                     ),
                   ],

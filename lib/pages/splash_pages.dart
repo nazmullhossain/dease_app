@@ -131,7 +131,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text("  "),
+        title: const Text("Welcome"),
         leading: Container(),
         backgroundColor: Colors.white,
         elevation: 0.0,

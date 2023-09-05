@@ -48,6 +48,9 @@ dependencies:
   data_connection_checker_nulls: ^0.0.2
   intl: ^0.18.1
   nb_utils: ^6.0.2
+  dotted_border: ^2.0.0+3
+  animated_icon:
+  flutter_svg:
 
 
 dev_dependencies:

@@ -21,14 +21,14 @@ class GlobalVarriable {
   static const backGroundColor=Colors.white;
   static const Color greyBackgroundColor=Color(0xffebecee);
   static var selectedNavBarColor=Colors.cyan[800]!;
-  static const unSelectedNavBarColor=Colors.black87;
+  static const unSelectedNavBarColor=Color(0xfff2efe8);
 
 
 
   static const List<Map<String, String>> categoryImages = [
     {
       'title': 'Diseases',
-      'image': 'images/atlas.png',
+      'image': 'images/skin.png',
     },
     {
       'title': 'Drugs',
@@ -52,7 +52,7 @@ class GlobalVarriable {
     },
     {
       'title': 'Case Studis',
-      'image':'images/atlas.png',
+      'image':'images/case-study.png',
     },
     {
       'title': 'Consultants',
@@ -68,7 +68,7 @@ class GlobalVarriable {
     MyListItem(
       title: 'Diseases',
 
-      image: 'images/atlas.png',
+      image: 'images/skin.png',
     ),
     MyListItem(
       title: 'Drugs',
@@ -78,7 +78,7 @@ class GlobalVarriable {
     MyListItem(
       title: 'Tests',
 
-      image: 'images/atlas.png',
+      image: 'images/mcq.png',
     ),
     MyListItem(
       title: 'Atlas',
@@ -88,7 +88,7 @@ class GlobalVarriable {
     MyListItem(
       title:  'Videos',
 
-      image: 'images/atlas.png',
+      image: 'images/video.png',
     ),
     MyListItem(
       title:  'Quizzes',
@@ -98,11 +98,11 @@ class GlobalVarriable {
     MyListItem(
       title:  'Case Studis',
 
-      image: 'images/atlas.png',
+      image: 'images/case-study.png',
     ),
     MyListItem(
       title:  'Consultants',
-      image: 'images/atlas.png',
+      image: 'images/consultant.png',
     ),
 
   ];

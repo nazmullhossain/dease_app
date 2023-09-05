@@ -11,8 +11,9 @@ class InvestigationList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
+      backgroundColor: Color(0xffEBE5D9),
       appBar: AppBar(
+        backgroundColor: Color(0xffEBE5D9),
         title: Text("Investigation List"),
         centerTitle: true,
       ),
@@ -29,7 +30,7 @@ class InvestigationList extends StatelessWidget {
                       margin: EdgeInsets.only(bottom: 2,top: 2,left: 10, right: 10),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
+                        color: Color(0xffF2EFE8),
 
                       ),
                       child: InkWell(
@@ -45,7 +46,7 @@ class InvestigationList extends StatelessWidget {
                             fit: BoxFit.cover,
                           ),
                           title: Text("Skin Disoders"),
-                          trailing: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_right)),
+                          trailing: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward)),
                         ),
                       ),
                     ),
