@@ -14,7 +14,7 @@ import '../pages/quiz_page.dart';
 
 class BottomBarWidget extends StatefulWidget {
   const BottomBarWidget({Key? key}) : super(key: key);
-  static const String routeName="/actual-home";
+  static const String routeName="/bottom";
   @override
   State<BottomBarWidget> createState() => _BottomBarWidgetState();
 }
@@ -65,9 +65,10 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                     )
                 )
             ),
-            child: Icon(Icons.home_outlined),
+            child: Image.asset("images/home.png",height: 30,width: 25,),
           ),
               label: "Home"
+              
           ),
 
 
@@ -122,7 +123,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
                     )
                 )
             ),
-            child: Icon(Icons.menu),
+            child: Image.asset("images/more-options.png",height: 30,width: 25,),
           ),
               label: "More"
           ),

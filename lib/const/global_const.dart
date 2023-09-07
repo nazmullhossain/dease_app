@@ -2,6 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+
+ String uri="http://skinvd.itmapi.com";
 final kBarlow = GoogleFonts.barlow(
 
 );

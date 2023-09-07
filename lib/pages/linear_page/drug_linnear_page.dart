@@ -9,6 +9,7 @@ import '../../models/brands_models.dart';
 import '../../provider/generic_provider.dart';
 import '../company_pages.dart';
 import 'linear_widget/drug/drug_widget.dart';
+import 'linear_widget/drug/therapeutic_widget.dart';
 import 'linear_widget/generic_widget.dart';
 
 class DragLinearPage extends StatefulWidget {
@@ -56,7 +57,7 @@ class _DragLinearPageState extends State<DragLinearPage>
     return Scaffold(
       backgroundColor: Color(0xffEBE5D9),
       appBar: AppBar(
-        elevation: 1,
+        elevation: 0,
         backgroundColor: Color(0xffEBE5D9),
         title: Text("Drugs",style: TextStyle(color: Colors.black),),
         centerTitle: true,
@@ -96,20 +97,26 @@ class _DragLinearPageState extends State<DragLinearPage>
               Container(
                 margin: EdgeInsets.only(top: 20,right: 10,left: 10),
          decoration: BoxDecoration(
-             border: Border.all(color: Colors.blueAccent),
+             border: Border.all(color: Color(0xff0EBBBB)),
            color: Color(0xffEBE5D9)
                ,borderRadius: BorderRadius.circular(5)
          ),
                 child: TabBar(
+
                     controller: _tabController,
-                    labelColor: Color(0xFFE57734),
-                    unselectedLabelColor: Colors.white.withOpacity(0.5),
+                    labelColor: Color(0xFFFFFFFF),
+                    unselectedLabelColor: Colors.grey.withOpacity(0.5),
                     isScrollable: true,
-                    indicator: UnderlineTabIndicator(
-                        borderSide:
-                            BorderSide(width: 3, color: Color(0xFFE57734)),
-                        insets: EdgeInsets.symmetric(horizontal: 16)),
-                    labelStyle:
+                    indicator: BoxDecoration(
+                      color:  Color(0xff0EBBBB),
+                      borderRadius: BorderRadius.circular(5)
+
+                    )
+                    // UnderlineTabIndicator(
+                    //     borderSide:
+                    //         BorderSide(width: 3, color: Color(0xFFE57734)),
+                    //     insets: EdgeInsets.symmetric(horizontal: 16)),
+                   , labelStyle:
                         TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                     labelPadding: EdgeInsets.symmetric(horizontal: 20),
                     tabs: [
@@ -122,21 +129,18 @@ class _DragLinearPageState extends State<DragLinearPage>
                       Tab(
                         text: "Therapeutic",
                       ),
-                      Tab(
-                        text: "Americano",
-                      ),
+
                     ]),
               ),
              SearchWidget(hintText: "Search by brand name"),
-              SizedBox(
-                height: 10,
-              ),
+
               Center(
                 child: [
                   DrugItemWidget(),
-                  CompanyItemWidget(),
                   GenericWidget(),
-                  DrugItemWidget(),
+                  TherapeuticWidget()
+
+
                 ][_tabController.index],
               )
             ],

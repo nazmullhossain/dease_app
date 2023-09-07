@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../const/global_const.dart';
+import 'linear_page/quiz_linear/quiz_detials_linear.dart';
 
 class QuizPage extends StatelessWidget {
   const QuizPage({super.key});
@@ -46,20 +47,26 @@ class QuizPage extends StatelessWidget {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10)
                 ),
-                child: ListTile(
-                  title: Text("10 Picture Quizzes",style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                  ),),
+                child: InkWell(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>QuizLinearDetails()));
 
-                  subtitle: Text("10 Picture Quizzes"),
+                  },
+                  child: ListTile(
+                    title: Text("10 Picture Quizzes",style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
+                    ),),
+
+                    subtitle: Text("10 Picture Quizzes"),
 
 
-                  trailing: Container(
-                    child: Icon(Icons.arrow_forward),
+                    trailing: Container(
+                      child: Icon(Icons.arrow_forward),
+                    ),
+
+
                   ),
-
-
                 ),
               );
             }),

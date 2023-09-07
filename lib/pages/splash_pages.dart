@@ -13,6 +13,7 @@ import '../models/company_model.dart';
 import '../services/brands_services.dart';
 import '../services/companies_service.dart';
 import '../utils/utilss.dart';
+import 'login_pages.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -86,7 +87,7 @@ class _SplashScreenState extends State<SplashScreen> {
           if (percent == 100.0) {
             Future.delayed(Duration(seconds: 4), () {
               Navigator.of(context).pushReplacement(
-                  MaterialPageRoute(builder: (context) => BottomBarWidget()));
+                  MaterialPageRoute(builder: (context) => LoginPages()));
             });
           }
         }

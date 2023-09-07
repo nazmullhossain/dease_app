@@ -1,24 +1,25 @@
-import 'package:aiataf/helper/generic_database.dart';
+
+import 'package:aiataf/models/therapeutic_model.dart';
+import 'package:aiataf/pages/linear_page/linear_widget/diseases/acanthosis_nirgricans_disease.dart';
+import 'package:aiataf/services/therapeutic_service.dart';
 import 'package:flutter/material.dart';
 
-import '../../../models/generic_model.dart';
-import '../../../services/generic_service.dart';
-import 'diseases/acanthosis_nirgricans_disease.dart';
 
-class GenericWidget extends StatefulWidget {
-  const GenericWidget({super.key});
+
+class TherapeuticWidget extends StatefulWidget {
+  const TherapeuticWidget({super.key});
 
   @override
-  State<GenericWidget> createState() => _GenericWidgetState();
+  State<TherapeuticWidget> createState() => _TherapeuticWidgetState();
 }
 
-class _GenericWidgetState extends State<GenericWidget> {
-  List<GenericData>? genericData;
+class _TherapeuticWidgetState extends State<TherapeuticWidget> {
+  List<TherapeuticData>? therapeuticData;
 
-  GenericService genericService = GenericService();
+  TherapeuticServices therapeuticServices = TherapeuticServices();
 
-  getGeneric() async {
-    genericData = await genericService.getGeneric(context);
+  getTherapeutic() async {
+    therapeuticData = await therapeuticServices.gettherapeuticServices(context);
     setState(() {});
   }
 
@@ -30,28 +31,28 @@ class _GenericWidgetState extends State<GenericWidget> {
   @override
   void initState() {
     // TODO: implement initState
-    getGeneric();
+    getTherapeutic();
     // getComapany();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return genericData == null
+    return therapeuticData == null
         ? Center(
-            child: CircularProgressIndicator(
+      child: CircularProgressIndicator(
 
 
-            ),
-          )
+      ),
+    )
         :   SizedBox(
       height: MediaQuery.of(context).size.height * 0.9,
       child: ListView.builder(
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
-          itemCount: genericData!.length,
+          itemCount: therapeuticData!.length,
           itemBuilder: (context, index) {
-            final dList = genericData![index];
+            final tList = therapeuticData![index];
             return Padding(
               padding: const EdgeInsets.all(4.0),
               child: Stack(
@@ -95,7 +96,7 @@ class _GenericWidgetState extends State<GenericWidget> {
                             child: Padding(
                               padding: const EdgeInsets.only(
                                   left: 30, top: 15, bottom: 5),
-                              child: Text("${dList.name}"),
+                              child: Text("${tList.name}"),
                             ),
                           ),
                         ],

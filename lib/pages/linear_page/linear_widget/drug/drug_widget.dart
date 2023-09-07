@@ -52,7 +52,7 @@ class _DrugItemWidgetState extends State<DrugItemWidget> {
         : Padding(
             padding: EdgeInsets.all(10),
             child: SizedBox(
-              height: 500,
+              height: MediaQuery.of(context).size.height*0.9,
               child: ListView.builder(
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
@@ -62,10 +62,18 @@ class _DrugItemWidgetState extends State<DrugItemWidget> {
                     // final dataaCompany = dataCompanyData![index];
 
                     return Container(
-                      padding: EdgeInsets.all(4),
-                      margin: EdgeInsets.all(5),
+                      padding: EdgeInsets.all(10),
+                      margin: EdgeInsets.all(3),
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.1),
+                              spreadRadius: 5,
+                              blurRadius: 20,
+                              offset: Offset(10, 3), // changes position of shadow
+                            ),
+                          ],
                           color: Colors.white70),
                       child: ListTile(
                         onTap: () {

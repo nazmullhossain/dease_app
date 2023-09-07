@@ -1,7 +1,10 @@
 import 'package:aiataf/helper/brand_database_helper.dart';
 import 'package:aiataf/models/brands_models.dart';
 import 'package:aiataf/models/company_model.dart';
+import 'package:aiataf/models/derma_update_model.dart';
 import 'package:aiataf/pages/quiz_page.dart';
+import 'package:aiataf/services/drema_update_service.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:intl/intl.dart';
@@ -37,7 +40,7 @@ class _HomePageState extends State<HomePage> {
   //   Navigator.pushNamed(context, CategoryDealsScreen.routeName,arguments: catagory);
   // }
 
-  List<CompanyData>? data;
+  List<DermaData>? data;
 
   String? dateString;
   bool _isPlaying = false;
@@ -56,11 +59,12 @@ class _HomePageState extends State<HomePage> {
     }
     return null;
   }
+  List<DermaData>?dermaData;
 
-  ComapanyServices brandServices = ComapanyServices();
+  DermaUpdateServices dermaUpdateServices = DermaUpdateServices();
 
   getCompany() async {
-    data = await brandServices.getCompany(context);
+    dermaData = await dermaUpdateServices.getDermaServices(context);
     setState(() {});
   }
 
@@ -150,7 +154,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        body: data == null
+        body: dermaData == null
             ? const Center(
                 child: Text("no data "),
               )
@@ -223,7 +227,7 @@ class _HomePageState extends State<HomePage> {
                                             context,
                                             MaterialPageRoute(
                                                 builder: (context) =>
-                                                    const QuizPage()));
+                                                    const QuizCatagoryLinear()));
                                       }
                                       if (index == 6) {
                                         Navigator.push(
@@ -380,16 +384,16 @@ class _HomePageState extends State<HomePage> {
                     ),
 
                     Scrollbar(
-
                       child: SizedBox(
-                        height: 300,
+                        height: MediaQuery.of(context).size.height*0.5,
                         child: ListView.builder(
-                            itemCount: data!.length,
+                            itemCount: dermaData!.length,
                             itemBuilder: (context, index) {
-                              final prod = data![index];
+                              final prod = dermaData![index];
                               return Container(
                                 padding: EdgeInsets.all(20),
-                                margin: EdgeInsets.only(left: 8,right: 8,top: 5),
+                                margin:
+                                    EdgeInsets.only(left: 8, right: 8, top: 5),
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     boxShadow: [
@@ -402,13 +406,12 @@ class _HomePageState extends State<HomePage> {
                                     ],
                                     color: Color(0XFFF2EFE8)),
                                 child: ListTile(
-                                  leading: Image.asset(
-                                    "images/welcome banner.png",
-                                    width: 50,
-                                    height: 50,
-                                    fit: BoxFit.cover,
+                                  leading:  CachedNetworkImage(
+                                    imageUrl: "${prod.image}",
+                                    placeholder: (context, url) => new CircularProgressIndicator(),
+                                    errorWidget: (context, url, error) => new Icon(Icons.error),
                                   ),
-                                  title: Text("${prod.name}"),
+                                  title: Text("${prod.title}",style: TextStyle(fontWeight: FontWeight.bold),),
                                   subtitle: const Text(
                                       "American Familly Physican(AFp)"),
                                 ),
@@ -423,9 +426,7 @@ class _HomePageState extends State<HomePage> {
                     //     color:
                     //   ),
                     // )
-                    const SizedBox(
-                      height: 50,
-                    ),
+
                   ],
                 ),
               ));

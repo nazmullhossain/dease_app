@@ -1,11 +1,38 @@
 
+import 'package:aiataf/models/diseases_model.dart';
+import 'package:aiataf/services/diseases_service.dart';
 import 'package:flutter/material.dart';
 
-import '../generic_widget.dart';
+
+
 import 'disease_content_linear.dart';
 
-class DieasesListWidget extends StatelessWidget {
+class DieasesListWidget extends StatefulWidget {
   const DieasesListWidget({super.key});
+
+  @override
+  State<DieasesListWidget> createState() => _DieasesListWidgetState();
+}
+
+class _DieasesListWidgetState extends State<DieasesListWidget> {
+List<DiseasesData>?diseasesData;
+
+   DiseasesServices diseasesServices = DiseasesServices();
+
+
+  getBrand() async {
+    diseasesData = await diseasesServices.getDiseasesServices(context);
+    setState(() {});
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    getBrand();
+    super.initState();
+  }
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +44,17 @@ class DieasesListWidget extends StatelessWidget {
         title: Text("Diseasses List",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.black38),),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
+      body:diseasesData==null?Center(child: CircularProgressIndicator(
+        color: Colors.amberAccent,
+      ),) :SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(top: 10,left: 5,right: 5),
           child: SizedBox(
-            height: 600,
+            height: MediaQuery.of(context).size.height*0.9,
             child: ListView.builder(
-                itemCount: 20,
+                itemCount: diseasesData!.length,
                 itemBuilder: (context,index){
+                  final datta=diseasesData![index];
               return Column(
                 children: [
                   // SizedBox(height: 20,),
@@ -37,17 +67,14 @@ class DieasesListWidget extends StatelessWidget {
                     ),
                     child: InkWell(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context)=>DiseaseContentLinear()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>DiseaseContentLinear(),settings: RouteSettings(
+                          arguments: datta
+                        )));
                       },
                       child: ListTile(
 
-                        leading: Image.asset(
-                          "images/welcome banner.png",
-                          width: 50,
-                          height: 50,
-                          fit: BoxFit.cover,
-                        ),
-                        title: Text("Skin Disoders"),
+                        leading: Image.network("${datta.icon}"),
+                        title: Text("${datta.name}"),
                         trailing: IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward)),
                       ),
                     ),
