@@ -1,11 +1,15 @@
+import 'package:aiataf/pages/home_pages.dart';
+import 'package:aiataf/pages/login_pages.dart';
 import 'package:aiataf/pages/splash_pages.dart';
 import 'package:aiataf/provider/brand_provider.dart';
 import 'package:aiataf/provider/company_provider.dart';
 import 'package:aiataf/provider/generic_provider.dart';
 import 'package:aiataf/router.dart';
+import 'package:aiataf/widget/bottom_bar_widget.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'helper/brand_database_helper.dart';
 import 'helper/company_helper.dart';
@@ -24,15 +28,35 @@ void main() async {
   ], child: const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+
+
+class _MyAppState extends State<MyApp> {
+  String token="";
+  Future<String?> getTokenFromSharedPreferences() async {
+    final prefs = await SharedPreferences.getInstance();
+    token= prefs.getString('token')!;
+    print("token ${token}");
+    return token;
+  }
+  @override
+  void initState() {
+    getTokenFromSharedPreferences();
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: SplashScreen(),
+      home:token.isEmpty? SplashScreen():BottomBarWidget(),
     );
   }
 }

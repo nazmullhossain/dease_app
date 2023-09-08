@@ -31,6 +31,7 @@ class LoginService {
         print("Response print: $jsonResponse");
         LoginModel login = LoginModel.fromJson(jsonResponse);
         if (login.success == true) {
+       await   saveTokenToSharedPreferences(res.body);
           Navigator.pushNamedAndRemoveUntil(
               context, BottomBarWidget.routeName, (route) => false);
           Fluttertoast.showToast(
@@ -85,5 +86,10 @@ class LoginService {
           textColor: Colors.white,
           fontSize: 16.0);
     }
+  }
+
+  Future<void> saveTokenToSharedPreferences(String token) async {
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('token', token);
   }
 }

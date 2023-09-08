@@ -1,5 +1,7 @@
 import 'package:aiataf/pages/profile_page.dart';
+import 'package:aiataf/pages/splash_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'favorite_page.dart';
 
@@ -182,12 +184,22 @@ class _MorePageState extends State<MorePage> {
                   SizedBox(
                     width: 10,
                   ),
-                  Text(
-                    "Contact Us",
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15,
-                        color: Colors.white.withOpacity(0.8)),
+                  InkWell(
+                    onTap: ()async{
+                      final SharedPreferences prefs = await SharedPreferences.getInstance();
+                   await   prefs.remove("token");
+
+                   Navigator.push(context, MaterialPageRoute(builder: (context)=>SplashScreen()));
+
+
+                    },
+                    child: Text(
+                      "Log out",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15,
+                          color: Colors.white.withOpacity(0.8)),
+                    ),
                   )
                 ],
               ),
