@@ -1,16 +1,10 @@
-
-
-
 import 'dart:io';
-
 
 import 'package:aiataf/models/brands_models.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../models/company_model.dart';
-
-
 
 class DbHelper {
   late Database database;
@@ -19,7 +13,7 @@ class DbHelper {
   final String companyIdColumn = 'company_id';
   final String idColumn = 'id';
   final String genericIdColumn = 'generic_id';
-  final String  nameColumn = 'name';
+  final String nameColumn = 'name';
   final String formColumn = 'form';
   final String packsizeColumn = 'packsize';
   final String strengthColumn = 'strength';
@@ -27,8 +21,6 @@ class DbHelper {
   final String createdAtColumn = 'created_at';
   final String updatedAtColumn = 'updated_at';
   final String deleteAtColumn = 'deleted_at';
-
-
 
   initDatabase() async {
     database = await connectToDatabase();
@@ -42,13 +34,9 @@ class DbHelper {
       version: 1,
       onCreate: (db, version) {
         db.execute(
-          // 'CREATE TABLE $tableName ($idColumn INTEGER PRIMARY KEY AUTOINCREMENT, $productNameColumn TEXT, $priceColumn INTEGER,$vatPercentColumn INTEGER,  $categoryNameColumn TEXT, $companyNameColumn TEXT, $unitNameColumn TEXT,$genericNameColumn TEXT,$strengthColumn TEXT,)');
-
+            // 'CREATE TABLE $tableName ($idColumn INTEGER PRIMARY KEY AUTOINCREMENT, $productNameColumn TEXT, $priceColumn INTEGER,$vatPercentColumn INTEGER,  $categoryNameColumn TEXT, $companyNameColumn TEXT, $unitNameColumn TEXT,$genericNameColumn TEXT,$strengthColumn TEXT,)');
 
             'CREATE TABLE $tableName ($idColumn INTEGER PRIMARY KEY AUTOINCREMENT, $nameColumn TEXT, $companyIdColumn INTEGER, $genericIdColumn INTEGER, $formColumn TEXT, $packsizeColumn TEXT, $strengthColumn TEXT,$priceColumn TEXT,$createdAtColumn TEXT,$updatedAtColumn TEXT,$deleteAtColumn TEXT)');
-
-
-
       },
       onUpgrade: (db, oldVersion, newVersion) {
         db.execute(
@@ -60,18 +48,29 @@ class DbHelper {
     );
   }
 
+//   Future<List<Data>> joinTables() async {
+//     // Perform the JOIN operation
+//     final List<Map<String, dynamic>> results = await database.rawQuery(
+//       'SELECT * from branddata',
+//     );
+//     print("ewau-----------${results}");
+//
+//
+//     return results.map((e) => Data.fromJson(e)).toList();
+// }
+
   Future<List<Data>> getAllRecipes() async {
     List<Map<String, dynamic>> tasks = await database.query(tableName);
 
     print("brand data---------------------.${tasks}");
-
 
     print("grand length-------------------->${tasks.length}");
     return tasks.map((e) => Data.fromJson(e)).toList();
   }
 
   insertNewRecipe(Data recipeModel) {
-    database.insert(tableName, recipeModel.toJson(),conflictAlgorithm: ConflictAlgorithm.replace);
+    database.insert(tableName, recipeModel.toJson(),
+        conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   // insertNewRecipe2(CompanyData recipeModel) {
@@ -79,29 +78,32 @@ class DbHelper {
   // }
 
   deleteRecipe(Data recipeModel) {
-    database
-        .delete(tableName, where: '$idColumn=?', whereArgs: [recipeModel]);
+    database.delete(tableName, where: '$idColumn=?', whereArgs: [recipeModel]);
   }
 
   deleteRecipes() {
     database.delete(tableName);
-
   }
-
-
 
   Future<List<Map<String, dynamic>>> getAllData() async {
     final db = await database;
     return await db.rawQuery('''
     select 
-    company.company_name, branddata.* 
+    branddata.*, company.id as company_id,company.name as company_name
     from branddata 
     left join company on branddata.company_id = company.id 
     ''');
   }
+
+  // Future<List<Map<String, dynamic>>> leftJoinTables() async {
+  //   final  db =  await database;
+  //
+  //   final query = '''
+  //   SELECT branddata.*, company.*
+  //   FROM branddata
+  //   LEFT JOIN company ON branddata.company_id = company.id
+  // ''';
+  //
+  //   return await db.rawQuery(query);
+  // }
 }
-
-
-
-
-

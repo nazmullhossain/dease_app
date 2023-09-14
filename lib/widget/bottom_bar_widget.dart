@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 
 import '../const/global_const.dart';
-import '../pages/case_studies_list.dart';
+import '../pages/linear_page/case_studies_linear/case_studies_list.dart';
 import '../pages/company_pages.dart';
 import '../pages/home_pages.dart';
 import '../pages/images_list_page.dart';

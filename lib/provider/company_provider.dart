@@ -20,13 +20,14 @@ class CompanyProvider extends ChangeNotifier {
   File? image;
 
 
-  List<CompanyData> allRecipes = [];
+  List<CompanyData> allCompany = [];
 
   getRecipes() async {
-    allRecipes = await ItemDbHelper.dbHelper.getAllRecipes();
+    allCompany = await ItemDbHelper.dbHelper.getAllRecipes();
     notifyListeners();
 
   }
+
 
 
   deleteAll(){

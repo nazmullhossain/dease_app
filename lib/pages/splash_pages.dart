@@ -66,7 +66,7 @@ class _SplashScreenState extends State<SplashScreen> {
     dataa = await brandServices.geBrand(context);
 
     if (!await isNetworkAvailable()) {
-      showSnackBar(context, "your internet connection done");
+      showSnackBar(context, "No Internet Connection!");
 
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (_) => const BottomBarWidget()));

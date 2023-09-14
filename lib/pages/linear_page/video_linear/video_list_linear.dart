@@ -69,7 +69,13 @@ class _VideoLinearListState extends State<VideoLinearList> {
                         Text("${dataa.name}",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 15),),
                         SizedBox(height: 5,),
                         Container(
-                          color: Colors.red,
+                 
+                          width: double.infinity,
+                          padding: EdgeInsets.all(3),
+                          decoration: BoxDecoration(
+                            color: Color(0xff0EBBBB),
+                            borderRadius: BorderRadius.circular(5)
+                          ),
 
                           child: CachedNetworkImage(
                             imageUrl: "${dataa.thumbnail}",

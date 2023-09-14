@@ -5,6 +5,7 @@ class SearchWidget extends StatelessWidget {
    SearchWidget({super.key,required this.hintText});
   String hintText;
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -12,6 +13,7 @@ class SearchWidget extends StatelessWidget {
 
 
       child: TextField(
+
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.search),
           hintStyle: TextStyle(

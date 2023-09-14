@@ -16,7 +16,7 @@ List <CompanyData>insertCompany=[];
 
     try {
       final String url =
-          "http://skinvd.itmapi.com/api/drugs/companies?limit=5&page=1&date=2022-09-08";
+          "http://skinvd.itmapi.com/api/drugs/companies";
 
       Map<String, String> headers = {
         "Accept": "application/json",

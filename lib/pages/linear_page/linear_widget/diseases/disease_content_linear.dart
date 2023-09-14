@@ -55,7 +55,7 @@ class _DiseaseContentLinearState extends State<DiseaseContentLinear> {
               child: ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
-                  itemCount: 20,
+                  itemCount: disListData!.length,
                   itemBuilder: (context, index) {
                     final dList = disListData![index];
                     return Padding(

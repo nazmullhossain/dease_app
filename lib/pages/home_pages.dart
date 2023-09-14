@@ -18,7 +18,7 @@ import '../services/brands_services.dart';
 import '../services/companies_service.dart';
 import '../widget/search_widget.dart';
 import '../widget/slider_widget.dart';
-import 'case_studies_list.dart';
+import 'linear_page/case_studies_linear/case_studies_list.dart';
 import 'linear_page/doctor_linear/doctor_list_linear.dart';
 import 'linear_page/drug_linnear_page.dart';
 import 'linear_page/linear_widget/atlas_linear/atlas_catagory_linear.dart';

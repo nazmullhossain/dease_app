@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:aiataf/helper/doctor_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -33,6 +34,7 @@ class DoctorListService {
 
         for (DoctorListData data in brandModel.data!) {
           insertDoctorList.add(data);
+          await DoctorHelper.dbHelper.insertNewRecipe(data);
         }
       }
     } on SocketException {

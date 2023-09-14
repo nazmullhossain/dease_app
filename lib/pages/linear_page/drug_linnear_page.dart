@@ -1,3 +1,4 @@
+import 'package:aiataf/helper/brand_database_helper.dart';
 import 'package:aiataf/provider/brand_provider.dart';
 import 'package:aiataf/provider/company_provider.dart';
 import 'package:aiataf/services/brands_services.dart';
@@ -59,15 +60,19 @@ class _DragLinearPageState extends State<DragLinearPage>
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Color(0xffEBE5D9),
-        title: Text("Drugs",style: TextStyle(color: Colors.black),),
+        title: Text(
+          "Drugs",
+          style: TextStyle(color: Colors.black),
+        ),
         centerTitle: true,
         actions: [
           Consumer<RecipeClass>(
               builder: (BuildContext context, provider, Widget? child) {
             return IconButton(
-                onPressed: () {
+                onPressed: () async {
                   // provider.joinGetData();
-                  provider.getRecipes();
+                  DbHelper.dbHelper.getAllRecipes();
+
                 },
                 icon: Icon(Icons.add));
           }),
@@ -95,28 +100,25 @@ class _DragLinearPageState extends State<DragLinearPage>
           child: ListView(
             children: [
               Container(
-                margin: EdgeInsets.only(top: 20,right: 10,left: 10),
-         decoration: BoxDecoration(
-             border: Border.all(color: Color(0xff0EBBBB)),
-           color: Color(0xffEBE5D9)
-               ,borderRadius: BorderRadius.circular(5)
-         ),
+                margin: EdgeInsets.only(top: 20, right: 10, left: 10),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Color(0xff0EBBBB)),
+                    color: Color(0xffEBE5D9),
+                    borderRadius: BorderRadius.circular(5)),
                 child: TabBar(
-
                     controller: _tabController,
                     labelColor: Color(0xFFFFFFFF),
                     unselectedLabelColor: Colors.grey.withOpacity(0.5),
                     isScrollable: true,
                     indicator: BoxDecoration(
-                      color:  Color(0xff0EBBBB),
-                      borderRadius: BorderRadius.circular(5)
-
-                    )
+                        color: Color(0xff0EBBBB),
+                        borderRadius: BorderRadius.circular(5))
                     // UnderlineTabIndicator(
                     //     borderSide:
                     //         BorderSide(width: 3, color: Color(0xFFE57734)),
                     //     insets: EdgeInsets.symmetric(horizontal: 16)),
-                   , labelStyle:
+                    ,
+                    labelStyle:
                         TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                     labelPadding: EdgeInsets.symmetric(horizontal: 20),
                     tabs: [
@@ -129,18 +131,18 @@ class _DragLinearPageState extends State<DragLinearPage>
                       Tab(
                         text: "Therapeutic",
                       ),
-
+                      Tab(
+                        text: "Company",
+                      ),
                     ]),
               ),
-             SearchWidget(hintText: "Search by brand name"),
-
+              SearchWidget(hintText: "Search by brand name"),
               Center(
                 child: [
                   DrugItemWidget(),
                   GenericWidget(),
-                  TherapeuticWidget()
-
-
+                  TherapeuticWidget(),
+                  CompanyItemWidget()
                 ][_tabController.index],
               )
             ],

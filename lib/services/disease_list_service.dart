@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:aiataf/const/global_const.dart';
 import 'package:aiataf/helper/brand_database_helper.dart';
+import 'package:aiataf/helper/disease_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -36,8 +37,9 @@ class DiseasesListServices {
         DistModel comapanyModel = DistModel.fromJson(jsonRes);
 
         for (DListData data in comapanyModel.data!) {
-          // await ItemDbHelper.dbHelper.insertNewRecipe(data);
+
           dListData.add(data);
+          // await DiseasesHelper.dbHelper.insertNewRecipe(data);
         }
       } else {}
     } catch (e) {
