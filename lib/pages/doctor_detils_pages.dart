@@ -12,13 +12,13 @@ class DoctorDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffEBE5D9),
+      backgroundColor: const Color(0xffEBE5D9),
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Color(0xffEBE5D9),
-        title: Text("Doctor Profile"),
+        backgroundColor: const Color(0xffEBE5D9),
+        title: const Text("Doctor Profile"),
         centerTitle: true,
-        actions: [Icon(Icons.share)],
+        actions: const [Icon(Icons.share)],
       ),
       body: SingleChildScrollView(
         child: Column(

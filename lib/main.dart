@@ -1,3 +1,4 @@
+import 'package:aiataf/helper/db_helper.dart';
 import 'package:aiataf/helper/disease_helper.dart';
 
 import 'package:aiataf/pages/splash_pages.dart';
@@ -23,6 +24,7 @@ void main() async {
   await GenericDbHelper.dbHelper.initDatabase();
   await DiseasesHelper.dbHelper.initDatabase();
   await DoctorHelper.dbHelper.initDatabase();
+  await DbHelper2.dbHelper.initDatabase();
 
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (context) => RecipeClass()),

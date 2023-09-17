@@ -1,4 +1,6 @@
 import 'package:aiataf/helper/brand_database_helper.dart';
+import 'package:aiataf/helper/db_helper.dart';
+import 'package:aiataf/helper/query/get_query.dart';
 import 'package:aiataf/provider/brand_provider.dart';
 import 'package:aiataf/provider/company_provider.dart';
 import 'package:aiataf/services/brands_services.dart';
@@ -71,6 +73,10 @@ class _DragLinearPageState extends State<DragLinearPage>
             return IconButton(
                 onPressed: () async {
                   // provider.joinGetData();
+                  await GetQuery().getAllData().then((value) {
+                    print("db return value -> ${value.length}");
+                    print("check------------->${value}");
+                  });
                   DbHelper.dbHelper.getAllRecipes();
 
                 },
@@ -79,7 +85,8 @@ class _DragLinearPageState extends State<DragLinearPage>
           Consumer<CompanyProvider>(
               builder: (BuildContext context, provider, Widget? child) {
             return IconButton(
-                onPressed: () {
+                onPressed: () async{
+                await  DbHelper2.dbHelper.getAllRecipes();
                   provider.getRecipes();
                 },
                 icon: Icon(Icons.comment));

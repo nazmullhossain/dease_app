@@ -1,4 +1,5 @@
 import 'package:aiataf/helper/company_helper.dart';
+import 'package:aiataf/helper/query/get_query.dart';
 import 'package:aiataf/provider/brand_provider.dart';
 import 'package:aiataf/provider/company_provider.dart';
 import 'package:flutter/material.dart';
@@ -37,8 +38,10 @@ class _DrugItemWidgetState extends State<DrugItemWidget> {
   }
 
   List<CompanyData>? dataCompany;
+  List<Map<String, dynamic>>f=[];
   getCompany() async {
-    dataCompany=await ItemDbHelper.dbHelper.getAllRecipes();
+  f=await GetQuery().getAllData();
+    
     // data = await brandServices.geBrand(context);
     print("brand length----------------->${data!.length}");
     setState(() {
@@ -73,64 +76,37 @@ class _DrugItemWidgetState extends State<DrugItemWidget> {
               builder: (context, provider, child) {
                 return SizedBox(
                   height: MediaQuery.of(context).size.height*0.9,
-                  child: ListView.builder(
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: provider.allRecipes!.length,
-                      itemBuilder: (context, index) {
-                        // final dataa = data![index];
-                   final  data= provider.allRecipes[index];
-                   // final  companyData= provider.allCompany[index];
-                        // final dataaCompany = dataCompanyData![index];
+                  child:     ListView.builder(
+                      itemCount: f.length,
+                      itemBuilder: (context,index){
+                    return Container(
+                      margin: EdgeInsets.all(3),
+              
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(5)
+                      ),
+                      child: ListTile(
+                        title: RichText(text: TextSpan(text: "${f[index]["name"]}",style: TextStyle(fontSize: 25,fontWeight: FontWeight.w600,color: Colors.black),children: [
+                          TextSpan(text: "${f[index]["strength"]}",style: TextStyle(fontSize: 8))
+                        ]),),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("${f[index]['company_name']}"),
+                          ],
+                        ),
+                        trailing: Text("${f[index]["form"]}"),
+                      )
 
-                        return Consumer<CompanyProvider>(
-
-                          builder: (context, provider, child) {
-                            return Container(
-                              padding: EdgeInsets.all(10),
-                              margin: EdgeInsets.all(3),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.withOpacity(0.1),
-                                      spreadRadius: 5,
-                                      blurRadius: 20,
-                                      offset: Offset(10, 3), // changes position of shadow
-                                    ),
-                                  ],
-                                  color: Colors.white70),
-                              child: ListTile(
-                                onTap: () {
-                                  // DbHelper.dbHelper.insertNewRecipe(data.);
-                                },
-                                title: RichText(
-                                  text: TextSpan(
-                                      text: "${data.name}",
-                                      style: const TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 25),
-                                      children: [
-                                        TextSpan(
-                                            text: "  ${data.strength}",
-                                            style: TextStyle(
-                                              color: Colors.black54,
-                                              fontSize: 12,
-                                            ))
-                                      ]),
-                                ),
-                                subtitle: Text("${dataCompany![index].name}"),
-                                // subtitle: dataCompanyData==null?Text("No data avaialbe") :Text("${dataaCompany.name}"),
-                                trailing: Text(
-                                  "${data.form}",
-                                  style: TextStyle(fontSize: 18, color: Colors.black),
-                                ),
-                              ),
-                            );
-                          }
-                        );
-                      }),
+                      // Column(
+                      //   children: [
+                      //     Text("${f[index]['name']}"),
+                      //     Text("company name${f[index]['company_name']}"),
+                      //   ],
+                      // ),
+                    );
+                  }),
                 );
               }
             ),

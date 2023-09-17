@@ -89,7 +89,7 @@ class DbHelper {
     final db = await database;
     return await db.rawQuery('''
     select 
-    branddata.*, company.id as company_id,company.name as company_name
+    branddata.*, company.id as company_id,company.name as company_name 
     from branddata 
     left join company on branddata.company_id = company.id 
     ''');

@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:aiataf/helper/brand_database_helper.dart';
+import 'package:aiataf/helper/db_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -33,7 +34,7 @@ List <CompanyData>insertCompany=[];
         ComapanyModel comapanyModel = ComapanyModel.fromJson(jsonRes);
 
         for (CompanyData data in comapanyModel.data!) {
-          await ItemDbHelper.dbHelper.insertNewRecipe(data);
+          await DbHelper2.dbHelper.insertCompany(data);
           insertCompany.add(data);
         }
       } else {}

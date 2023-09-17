@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:aiataf/const/error_handling.dart';
 import 'package:aiataf/helper/brand_database_helper.dart';
+import 'package:aiataf/helper/db_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -43,7 +44,7 @@ class BrandServices {
         BrandModel brandModel=BrandModel.fromJson(jsonRes);
 
         for(Data data in brandModel.data!){
-          await  DbHelper.dbHelper.insertNewRecipe(data);
+          await  DbHelper2.dbHelper.insertBrand(data);
             insertData.add(data);
 
         }
