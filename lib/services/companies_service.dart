@@ -12,12 +12,12 @@ import '../models/company_model.dart';
 
 
 class ComapanyServices {
-  Future<List<CompanyData>> getCompany(BuildContext context) async {
+  Future<List<CompanyData>> getCompany(BuildContext context,int limit) async {
 List <CompanyData>insertCompany=[];
 
     try {
       final String url =
-          "http://skinvd.itmapi.com/api/drugs/companies";
+          "http://skinvd.itmapi.com/api/drugs/companies?limit=$limit";
 
       Map<String, String> headers = {
         "Accept": "application/json",
@@ -25,16 +25,18 @@ List <CompanyData>insertCompany=[];
       };
 
       http.Response res = await http.get(Uri.parse(url), headers: headers);
-      print("company data${res.body}");
+      print("company data${res.body.length}");
 
       if (res.statusCode == 200) {
         var jsonRes = jsonDecode(res.body);
         print(jsonRes);
+        print("string url ${url}");
 
         ComapanyModel comapanyModel = ComapanyModel.fromJson(jsonRes);
 
         for (CompanyData data in comapanyModel.data!) {
           await DbHelper2.dbHelper.insertCompany(data);
+
           insertCompany.add(data);
         }
       } else {}

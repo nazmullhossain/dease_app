@@ -45,9 +45,7 @@ class _DrugItemWidgetState extends State<DrugItemWidget> {
     // data = await brandServices.geBrand(context);
     print("brand length----------------->${data!.length}");
     setState(() {
-      // data!.addAll(newData);
-      // currentPage++;
-      // itemsPerPage++;
+
     });
   }
 

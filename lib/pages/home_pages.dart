@@ -1,21 +1,16 @@
-import 'package:aiataf/helper/brand_database_helper.dart';
-import 'package:aiataf/models/brands_models.dart';
-import 'package:aiataf/models/company_model.dart';
 import 'package:aiataf/models/derma_update_model.dart';
-import 'package:aiataf/pages/quiz_page.dart';
+
 import 'package:aiataf/services/drema_update_service.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:intl/intl.dart';
+
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../const/global_const.dart';
 
 import '../provider/company_provider.dart';
-import '../services/brands_services.dart';
-import '../services/companies_service.dart';
+
 import '../widget/search_widget.dart';
 import '../widget/slider_widget.dart';
 import 'linear_page/case_studies_linear/case_studies_list.dart';
@@ -47,7 +42,8 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> saveDate(DateTime date) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString("date", date.toIso8601String());
+    await prefs.setString("date",
+        "${date.toLocal().day.toString()}-${date.toLocal().month.toString()}-${date.toLocal().year.toString()}");
   }
 
   Future<DateTime?> getDate() async {
@@ -59,7 +55,8 @@ class _HomePageState extends State<HomePage> {
     }
     return null;
   }
-  List<DermaData>?dermaData;
+
+  List<DermaData>? dermaData;
 
   DermaUpdateServices dermaUpdateServices = DermaUpdateServices();
 
@@ -140,12 +137,14 @@ class _HomePageState extends State<HomePage> {
                           text: TextSpan(
                               text: "Last sync",
                               style: const TextStyle(
-                                  fontSize: 5, color: Color(0xff7C8F92)),
+                                  fontSize: 10,
+                                  color: Color(0xff7C8F92),
+                                  fontWeight: FontWeight.bold),
                               children: [
                             TextSpan(
                                 text: " ${dateString}",
                                 style: const TextStyle(
-                                    fontSize: 8, color: Color(0xff7C8F92)))
+                                    fontSize: 10, color: Color(0xff7C8F92)))
                           ]))
                     ],
                   ),
@@ -385,7 +384,7 @@ class _HomePageState extends State<HomePage> {
 
                     Scrollbar(
                       child: SizedBox(
-                        height: MediaQuery.of(context).size.height*0.5,
+                        height: MediaQuery.of(context).size.height * 0.5,
                         child: ListView.builder(
                             itemCount: dermaData!.length,
                             itemBuilder: (context, index) {
@@ -406,12 +405,18 @@ class _HomePageState extends State<HomePage> {
                                     ],
                                     color: Color(0XFFF2EFE8)),
                                 child: ListTile(
-                                  leading:  CachedNetworkImage(
+                                  leading: CachedNetworkImage(
                                     imageUrl: "${prod.image}",
-                                    placeholder: (context, url) => new CircularProgressIndicator(),
-                                    errorWidget: (context, url, error) => new Icon(Icons.error),
+                                    placeholder: (context, url) =>
+                                        new CircularProgressIndicator(),
+                                    errorWidget: (context, url, error) =>
+                                        new Icon(Icons.error),
                                   ),
-                                  title: Text("${prod.title}",style: TextStyle(fontWeight: FontWeight.bold),),
+                                  title: Text(
+                                    "${prod.title}",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                   subtitle: const Text(
                                       "American Familly Physican(AFp)"),
                                 ),
@@ -426,7 +431,6 @@ class _HomePageState extends State<HomePage> {
                     //     color:
                     //   ),
                     // )
-
                   ],
                 ),
               ));

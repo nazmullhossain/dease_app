@@ -79,8 +79,6 @@ class DbHelper2 {
   final String deletedAtColumn = 'deleted_at';
   final String therapeuticsColumn = 'therapeutics';
 
-
-
   Future<List<Product>> getAllRecipes() async {
     List<Map<String, dynamic>> tasks = await database.query(tBrandTable);
 
