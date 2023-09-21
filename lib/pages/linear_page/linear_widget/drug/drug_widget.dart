@@ -66,7 +66,7 @@ class _DrugItemWidgetState extends State<DrugItemWidget> {
   @override
   Widget build(BuildContext context) {
     return data == null
-        ? Text("No data available")
+        ? Text("No data available ")
         : Padding(
             padding: EdgeInsets.all(10),
             child: Consumer<RecipeClass>(
@@ -92,6 +92,7 @@ class _DrugItemWidgetState extends State<DrugItemWidget> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text("${f[index]['company_name']}"),
+                            // Text("${data[index].}")
                           ],
                         ),
                         trailing: Text("${f[index]["form"]}"),

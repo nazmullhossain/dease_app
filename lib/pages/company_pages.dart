@@ -21,7 +21,6 @@ class _CompanyItemWidgetState extends State<CompanyItemWidget> {
   // List<CompanyData>? data;
   List<CompanyData>? dataCompanyData;
 
-  // BrandServices brandServices = BrandServices();
   ComapanyServices companyServices = ComapanyServices();
   int _counter = 0;
   void _incrementCounter() async {
@@ -33,8 +32,13 @@ class _CompanyItemWidgetState extends State<CompanyItemWidget> {
   }
 
   getBrand() async {
-    dataCompanyData = await companyServices.getCompany(context, _counter);
-    setState(() {});
+    for(int i=0;i<5; i++){
+      dataCompanyData = await companyServices.getCompany(context,    _counter += 100);
+      setState(() {
+
+      });
+    }
+
   }
 
   // getComapany() async {
